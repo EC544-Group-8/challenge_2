@@ -23,6 +23,7 @@ sp.on("open", function () {
 
 var ping_index = 0;
 var avg = -500.00;
+
 var NUM_SENSORS = 4;
 var pings = ['a', 'b', 'c', 'd'];
 var measurement = {
@@ -30,6 +31,12 @@ var measurement = {
   '2': '-500.00',
   '3': '-500.00',
   '4': '-500.00'
+};
+var time_out_countdown = {
+  '1': 10,
+  '2': 10,
+  '3': 10,
+  '4': 10,
 };
 
 // Parse the incoming transmission from a particular node
@@ -43,9 +50,11 @@ function parse_data(dataString) {
     var temp = arrayOfStrings[1];
     
     // console.log('parse data id: ' + id + ' ' + temp);
-    // Update the measurement object at that ID
-    measurement[id] = temp;
-    
+    // Update the measurement object at that ID, as long as the reading is valid (i.e. > -273.15 degrees C)
+    if(parseFloat(temp) > -273.15) {
+      measurement[id] = temp;
+      time_out_countdown[id] = 10;
+    }
   }
 }
 
@@ -56,10 +65,15 @@ function calc_avg(allData){
 
   // Sum all the readings (1 per node)
   for(i = 1; i < NUM_SENSORS+1; i++){
-    //  Check that reading is valid (i.e. > -273.15 degrees C)
-    if(parseFloat(allData[i]) > -273.15) {
+    //  Check that reading is valid (not the default reset of -500 degrees C)
+    if(parseFloat(allData[i]) > -500.00) {
       total += parseFloat(allData[i]);
       divisor++;
+    }
+    // Reduce the countdown to timeout for each of the sensors 
+    if(--time_out_countdown[i] <= 0 && allData[i] != -500.00){
+      // reset the reading to the default, so that its not used in the average anymore
+      allData[i] = -500.00;
     }
   }
 
@@ -70,6 +84,9 @@ function calc_avg(allData){
   } else {
     avg = -500.00;
   }
+
+  
+
   
 }
 
@@ -97,3 +114,4 @@ setInterval(function(){
     calc_avg(measurement);
     print_data(avg);
 }, 2000);
+
