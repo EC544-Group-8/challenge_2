@@ -1,3 +1,12 @@
+// Connect to Database
+
+
+// Receive Individual Data (already built)
+
+
+// Load last 20 readings at start if they exist
+
+
 window.onload = function () {
 
 	var dps = []; // dataPoints
