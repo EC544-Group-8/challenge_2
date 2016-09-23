@@ -10,9 +10,25 @@
 
 		var dps = []; // dataPoints
 
-		var chart = new CanvasJS.Chart("chartContainer",{
+		var chart = new CanvasJS.Chart("scroller",{
 			title :{
 				text: "Real Time Average Temperature"
+			},			
+			axisX:{
+				title:"Time (s)"
+			},
+			axisY:{
+				title:"Temperature (°C)"
+			},
+			data: [{
+				type: "line",
+				dataPoints: dps 
+			}]
+		});
+
+		var history_chart = new CanvasJS.Chart("history",{
+			title :{
+				text: "Historical Average Temperature"
 			},			
 			axisX:{
 				title:"Time (s)"
@@ -71,8 +87,8 @@
 			// =============================================================================
 			// Update Chart
 			chart.render();		
+			history_chart.render();
 			// =============================================================================
-			
 
 		};
 
@@ -87,8 +103,27 @@
 	<script type="text/javascript" src="./canvasjs.min.js"></script>
 </head>
 <body>
-	<div id="chartContainer" style="height: 300px; width:100%;">
+	<div id="header">
+		<h1> EC544 Group 8 - Challenge 2</h1>
+		<h3> Nest Data Visualization</h3>
+		<p> Andrew Dellolis, Connor McCann, Eric Mooney, Luke Osborne</p>
 	</div>
+
+	<div id="toprow" style="height:300px; width:100%;">
+		<div id="average" style="height:300px; width:300px;">
+			<h1> Average Temperature</h1>
+		</div>
+
+		<div id="history" style="height:300px; width:100%;">
+		</div>
+	</div>
+
+	<div id="bottomrow" style="height:300px; width:100%;">
+		<div id="scroller" style="height: 300px; width:100%;">
+		</div>
+	</div>
+
+	
 </body>
 </html>
 
