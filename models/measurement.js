@@ -1,9 +1,18 @@
 var db = require('../db.js');
 
-exports.create = function(measurement_id, sensor_id, reading, date, done) {
-  var values = [measurement_id, sensor_id, reading, date, new Date().toISOString()];
-  
-  db.get().query('INSERT INTO measurements (id, sensor_id, reading, date_received, date_added) VALUES(?, ?, ?, ?, ?)', values, function(err, result) {
+exports.create = function(sensor_id, reading, done) {
+  var d = new Date();
+  date_added = [d.getFullYear(),
+                '0'+(d.getMonth()+1),
+                d.getDate(),
+                ].join('-')+' '+
+               [d.getHours(),
+                d.getMinutes(),
+                d.getSeconds()].join(':');
+
+  var values = [sensor_id, parseFloat(reading).toFixed(2), date_added, date_added];
+
+  db.get().query('INSERT INTO measurements (sensor_id, reading, date_received, date_added) VALUES(?, ?, ?, ?)', values, function(err, result) {
     if (err) return done(err);
     done(null, result.insertId);
   });
