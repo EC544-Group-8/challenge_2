@@ -13,16 +13,66 @@
 
     <main>
         <div class="jumbotron">
-            <h1><%= title %></h1>
-            <h2>All the Measurements</h2>
-            <ul>
-            	<% if(measurements) { %>
-	                <% measurements.forEach(function(measurement) { %>
-	                    <li><%= measurement.id %> - <%= measurement.reading %></li>
-	                <% }); %>
-	            <% }; %>
-            </ul>
+            <div class="row">
+                <div class="col-md-6">
+                    <h1><%= title %></h1>
+                    <h2>Historical Measurements</h2>
+                    <h3>Average Temperature</h3>
+                    <p id="average"> 27 &deg;C </p>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-striped">
+                        <thead>
+                            <th>Sensor</th>
+                            <th>Reading</th>
+                            <th>Date</th>
+                        </thead>
+                        <tbody>
+                            <% if(measurements) { %>
+                                <% measurements.forEach(function(measurement) { %>
+                                    <tr>
+                                        <td><%= measurement.sensor_id %></td>
+                                        <td><%= measurement.reading %> &deg;C</td>
+                                        <td><%= measurement.date_received %></td>
+                                    </tr>
+                                <% }); %>
+                            <% } else { %>
+                                <tr>
+                                    <td>No readings yet!</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            <% }; %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+
+        <div class="row">
+            <div id="history" class="col-md-12"></div>
+        </div>
+   
+        <div class="row">
+            <div id="scroller"></div>
+        </div>
+        
+        <div class="row">
+            <div id="sensor1"></div>
+        </div>
+
+        <div class="row">
+            <div id="sensor2"></div>
+        </div>
+
+        <div class="row">    
+            <div id="sensor3"></div>
+        </div>
+
+        <div class="row">
+            <div id="sensor4"></div>
+        </div> 
+
     </main>
 
     <footer>
@@ -30,5 +80,7 @@
     </footer>
     
 </body>
+<script type="text/javascript" src="/javascripts/canvasjs.min.js"></script>
+<script type="text/javascript" src="/javascripts/chart.js"></script>
 </html>
 

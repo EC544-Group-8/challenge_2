@@ -1,8 +1,68 @@
+body,
+html {
+	width: 100%;
+	height: 100%;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6, {
+	font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-weight: 700;
+}
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+#header {
+	height: auto;
+	width: 100%;
+	text-align: center;
+}
+
+#average {
+	height: 25%;
+	width: 25%;
+	float: left;
+	margin: auto;
+}
+#average h3 {
+	text-align: center;
+}
+
+#average {
+	text-align: center;
+	color: red;
+	font-weight: bold;
+	font-size: 200%;
+}
+
+#history {
+	height: 25%;
+	width: 75%;
+	margin: auto;
+}
+
+#scroller {
+	height: 30%;
+	width: 80%;
+	margin: auto;
+}
+
+#sensor1,
+#sensor2,
+#sensor3,
+#sensor4 {
+	height: 20%;
+	width: 50%;
+	float: left;
 }
