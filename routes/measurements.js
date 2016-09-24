@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
+var Measurement = require('../models/measurement.js');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Measurements' });
+
+	// Get from the DB
+	Measurement.getAll(function (err, measurements) {
+		res.render('measurements', { title: 'Measurements', measurements: measurements });
+	});
 });
+
 
 module.exports = router;
