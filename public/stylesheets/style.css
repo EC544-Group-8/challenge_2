@@ -16,7 +16,8 @@ h6, {
 }
 
 body {
-  padding: 50px;
+	height:auto;
+	padding: 50px;
 }
 
 a {
@@ -27,42 +28,43 @@ a {
 	height: auto;
 	width: 100%;
 	text-align: center;
+	margin:auto;
 }
 
 #average {
 	height: 25%;
 	width: 25%;
-	float: left;
-	margin: auto;
-}
-#average h3 {
-	text-align: center;
-}
-
-#average {
 	text-align: center;
 	color: red;
 	font-weight: bold;
 	font-size: 200%;
 }
 
+#realtime{
+	height: auto;
+}
+
+.row_chart{
+	height: 400px;
+}
+
 #history {
-	height: 25%;
-	width: 75%;
-	margin: auto;
+	height: 100%;
+	width: 100%;
+	clear: both;
 }
 
 #scroller {
-	height: 30%;
-	width: 80%;
-	margin: auto;
+	height: 100%;
+	width: 100%;
+	float:left;
 }
 
 #sensor1,
 #sensor2,
 #sensor3,
 #sensor4 {
-	height: 20%;
+	height: 50%;
 	width: 50%;
 	float: left;
 }
