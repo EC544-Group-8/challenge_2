@@ -5,7 +5,7 @@ var SerialPort = require("serialport");
 
 var portName = process.argv[2],
 portConfig = {
-	baudRate: 9600,
+	baudRate: 115200,
 	parser: SerialPort.parsers.readline("\n")
 };
 var sp;
@@ -101,13 +101,13 @@ function print_data(avgTemp){
     console.log('The Average is:   ' + avgTemp.toFixed(2) + ' degrees Celsius');
 }
 
-// Every .3 seconds, and ping one of the arduinos
+// Every 3 seconds, and ping one of the arduinos
 setInterval(function(){
     get_data(ping_index);
     if(++ping_index > 3) {
       ping_index = 0;
     }
-}, 300);
+}, 3000);
 
 // Every 2 seconds, and run the print_data
 setInterval(function(){
