@@ -49,7 +49,6 @@ db.connect(db.MODE_PRODUCTION, function(err) {
 });
 
 // ---- BEGIN XBee communication ----- //
-
 // When the controller xBee's serialport is filled, parse the data
 sp.on("open", function () {
   console.log('open');
@@ -136,20 +135,19 @@ function print_data(avgTemp){
     console.log('The Average is:   ' + avgTemp.toFixed(2) + ' degrees Celsius');
 }
 
-// Every .3 seconds, and ping one of the arduinos
+// Every 3 seconds ping one of the arduinos
 setInterval(function(){
     get_data(ping_index);
     if(++ping_index > 3) {
       ping_index = 0;
     }
-}, 300);
+}, 3000);
 
 // Every 2 seconds, and run the print_data
 setInterval(function(){
     calc_avg(measurement);
     print_data(avg);
-}, 2000);
-
+}, 10000);
 // ---- END XBee communication ----- //
 
 // catch 404 and forward to error handler
