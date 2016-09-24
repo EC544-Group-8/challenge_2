@@ -6,7 +6,6 @@
     <% include partials/head %>
 </head>
 <body class="container">
-
     <header>
         <% include partials/header %>
     </header>
@@ -49,31 +48,28 @@
             </div>
         </div>
 
-        <div class="row">
-            <div id="history" class="col-md-12"></div>
-        </div>
-   
-        <div class="row">
-            <div id="scroller"></div>
-        </div>
-        
-        <div class="row">
-            <div id="sensor1"></div>
-        </div>
+		<div class="row" style="height:20vh;">
+			<div id="scroller"></div>
+		</div>
 
-        <div class="row">
-            <div id="sensor2"></div>
-        </div>
+		<div class="row" style="height:20vh;">
+            <div id="history"></div>
+		</div>
+		<div class="row" style="height:30vh;">
+			
+				<div id="sensor1"></div>
+				<div id="sensor2"></div>
+				<div id="sensor3"></div>
+				<div id="sensor4"></div>
 
-        <div class="row">    
-            <div id="sensor3"></div>
-        </div>
-
-        <div class="row">
-            <div id="sensor4"></div>
-        </div> 
-
+		</div>
     </main>
+<!--
+            <div id="sensor1"></div>
+            <div id="sensor2"></div>
+            <div id="sensor3"></div>
+            <div id="sensor4"></div>
+-->
 
     <footer>
         <% include partials/footer %>
