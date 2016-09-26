@@ -12,7 +12,7 @@ exports.parse_data = function(dataString) {
     var id = arrayOfStrings[0];
     var temp = arrayOfStrings[1];
     
-    // console.log('parse data id: ' + id + ' ' + temp);
+    console.log('parse data id: ' + id + ' ' + temp);
     // Update the measurement object at that ID, as long as the reading is valid (i.e. > -273.15 degrees C)
     if(parseFloat(temp) > -273.15) {
       // Push that temp to the database
