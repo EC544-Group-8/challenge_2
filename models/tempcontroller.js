@@ -34,7 +34,8 @@ exports.calc_avg = function(){
   //*****************************
   Measurement.getAllMostRecent(function (err, measurements) {
     // Sum all the readings (1 per node)
-      for(i = 1; i < NUM_SENSORS+1; i++){
+    // changed it from 1 and num_sensors+1
+      for(i = 0; i < NUM_SENSORS; i++){
         console.log(' looping ' + measurements[i].reading);
         
 
