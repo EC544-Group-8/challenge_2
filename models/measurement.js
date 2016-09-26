@@ -34,8 +34,6 @@ exports.getAllBySensor = function(sensor_id, done) {
 };
 
 // Query to obtain readings from each Node in the last 10 minutes
-// select * from challenge_2 where date_added < (now + interval 10 minute)
-// GROUP by sensro_id;
 exports.getAllMostRecent = function(sensor_id, done) {
   var d = new Date;
   var now = [d.getFullYear(),
@@ -45,11 +43,35 @@ exports.getAllMostRecent = function(sensor_id, done) {
                [d.getHours(),
                 d.getMinutes(),
                 d.getSeconds()].join(':');
-  db.get().query('SELECT * FROM measurements WHERE (date_added < (? + INTERVAL 10 MINUTE)) group by sensor_id', now, function(err,rows) {
+  db.get().query('SELECT * FROM measurements WHERE' +
+   '(date_added < (? + INTERVAL 10 MINUTE)) group by sensor_id', now, function(err,rows) {
     if(err) return done(err);
     done(null, rows);
   });
 };
+
+
+// Query to get Historical data for each Node based on a slider? or radio button on Front End
+exports.getHistoricNode = function(sensor_id, range, done) {
+  var d = new Date;
+  var now = [d.getFullYear(),
+               '0'+(d.getMonth()+1),
+                d.getDate(),
+                ].join('-')+' '+
+               [d.getHours(),
+                d.getMinutes(),
+                d.getSeconds()].join(':');
+  db.get().query('SELECT * FROM measurements WHERE' +
+    '(date_added < (now + INTERVAL ?)) and sensor_id = ?', 
+      range, sensor_id, function(err,rows) {
+      if(err) return done(err);
+      done(null,rows);
+     });
+};
+
+
+// Query to get data necessary for Total Historical Average
+// Maybe we want to store each calulated Total average into another table
 
 
 
