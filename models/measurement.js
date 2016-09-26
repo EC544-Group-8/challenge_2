@@ -62,8 +62,7 @@ exports.getAllMostRecent = function(sensor_id, done) {
                [d.getHours(),
                 d.getMinutes(),
                 d.getSeconds()].join(':');
-  db.get().query('SELECT * FROM measurements WHERE' +
-   '(date_added < (? + INTERVAL 10 MINUTE)) group by sensor_id', now, function(err,rows) {
+  db.get().query('SELECT * FROM measurements WHERE (date_added < (? + INTERVAL 10 MINUTE)) group by sensor_id', now, function(err,rows) {
     if(err) return done(err);
     done(null, rows);
   });
@@ -80,8 +79,7 @@ exports.getHistoricNode = function(sensor_id, range, done) {
                [d.getHours(),
                 d.getMinutes(),
                 d.getSeconds()].join(':');
-  db.get().query('SELECT * FROM measurements WHERE' +
-    '(date_added < (now + INTERVAL ?)) and sensor_id = ?', 
+  db.get().query('SELECT * FROM measurements WHERE (date_added < (now + INTERVAL ?)) and sensor_id = ?', 
       range, sensor_id, function(err,rows) {
       if(err) return done(err);
       done(null,rows);
