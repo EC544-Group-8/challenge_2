@@ -19,6 +19,25 @@ exports.create = function(sensor_id, reading, done) {
   });
 };
 
+// Query to insert the calculated averages into the averages data table
+exports.saveAvg = function(temp,done) {
+  var d = new Date();
+  date_added = [d.getFullYear(),
+                '0'+(d.getMonth()+1),
+                d.getDate(),
+                ].join('-')+' '+
+               [d.getHours(),
+                d.getMinutes(),
+                d.getSeconds()].join(':');
+
+  var values = [temp,date_added];
+  db.get().query('INSERT INTO averages (temp, date_added) VALUES (?,?)', values, function(err, result) {
+    if(err) return done(err);
+    done(null,result.insertId);
+  });
+};
+
+
 exports.getAll = function(done) {
   db.get().query('SELECT * FROM measurements', function (err, rows) {
     if (err) return done(err);
