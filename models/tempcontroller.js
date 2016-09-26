@@ -29,7 +29,10 @@ exports.calc_avg = function(){
   var divisor = 0;
 
   // Get all the readings from the DB
-  Measurement.getAll(function (err, measurements) {
+  //*****************************
+  // I changed this from .getAll
+  //*****************************
+  Measurement.getAllMostRecent(function (err, measurements) {
     // Sum all the readings (1 per node)
       for(i = 1; i < NUM_SENSORS+1; i++){
         console.log(' looping ' + measurements[i].reading);
@@ -51,6 +54,5 @@ exports.calc_avg = function(){
       }
       // Print the instantaneous average
       console.log('The Average is:   ' + avg.toFixed(2) + ' degrees Celsius');
-  });
-  
+  }); 
 };
