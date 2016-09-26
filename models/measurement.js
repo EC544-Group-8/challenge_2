@@ -55,7 +55,7 @@ exports.getAllBySensor = function(sensor_id, done) {
 // Query to obtain readings from each Node in the last 10 minutes
 exports.getAllMostRecent = function(done) {
   var d = new Date;
-  var now = [d.getFullYear(),
+  now = [d.getFullYear(),
                '0'+(d.getMonth()+1),
                 d.getDate(),
                 ].join('-')+' '+
