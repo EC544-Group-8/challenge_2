@@ -31,7 +31,7 @@ exports.saveAvg = function(temp,done) {
                 d.getSeconds()].join(':');
 
   var values = [temp,date_added];
-  db.get().query('INSERT INTO averages (temp, date_added) VALUES (?,?)', values, function(err, result) {
+  db.get().query('INSERT INTO averages (temp, date_added) VALUES(?,?)', values, function(err, result) {
     if(err) return done(err);
     done(null,result.insertId);
   });

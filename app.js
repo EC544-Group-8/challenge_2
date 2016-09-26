@@ -74,6 +74,7 @@ setInterval(function(){
 
 // Every 2 seconds, and run the print_data
 setInterval(function(){
+    console.log("calculating the average...")
     Tempcontroller.calc_avg();
 }, 2000);
 // ---- END XBee communication ----- //
