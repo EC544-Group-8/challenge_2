@@ -45,7 +45,7 @@ exports.getAll = function(done) {
   });
 };
 
-exports.getAllBySensor = function(done) {
+exports.getAllBySensor = function(sensor_id, done) {
   db.get().query('SELECT * FROM measurements WHERE sensor_id = ?', sensor_id, function (err, rows) {
     if (err) return done(err);
     done(null, rows);
@@ -53,7 +53,7 @@ exports.getAllBySensor = function(done) {
 };
 
 // Query to obtain readings from each Node in the last 10 minutes
-exports.getAllMostRecent = function(sensor_id, done) {
+exports.getAllMostRecent = function(done) {
   var d = new Date;
   var now = [d.getFullYear(),
                '0'+(d.getMonth()+1),
