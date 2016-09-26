@@ -45,7 +45,7 @@ exports.getAll = function(done) {
   });
 };
 
-exports.getAllBySensor = function(sensor_id, done) {
+exports.getAllBySensor = function(done) {
   db.get().query('SELECT * FROM measurements WHERE sensor_id = ?', sensor_id, function (err, rows) {
     if (err) return done(err);
     done(null, rows);
@@ -62,6 +62,7 @@ exports.getAllMostRecent = function(sensor_id, done) {
                [d.getHours(),
                 d.getMinutes(),
                 d.getSeconds()].join(':');
+  
   db.get().query('SELECT * FROM measurements WHERE (date_added < (? + INTERVAL 10 MINUTE)) group by sensor_id', now, function(err,rows) {
     if(err) return done(err);
     done(null, rows);
