@@ -1,0 +1,70 @@
+body,
+html {
+	width: 100%;
+	height: 100%;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6, {
+	font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-weight: 700;
+}
+
+body {
+	height:auto;
+	padding: 50px;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#header {
+	height: auto;
+	width: 100%;
+	text-align: center;
+	margin:auto;
+}
+
+#average {
+	height: 25%;
+	width: 25%;
+	text-align: center;
+	color: red;
+	font-weight: bold;
+	font-size: 200%;
+}
+
+#realtime{
+	height: auto;
+}
+
+.row_chart{
+	height: 400px;
+}
+
+#history {
+	height: 100%;
+	width: 100%;
+	clear: both;
+}
+
+#scroller {
+	height: 100%;
+	width: 100%;
+	float:left;
+}
+
+#sensor1,
+#sensor2,
+#sensor3,
+#sensor4 {
+	height: 50%;
+	width: 50%;
+	float: left;
+}

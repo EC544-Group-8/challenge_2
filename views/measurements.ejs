@@ -1,0 +1,82 @@
+<!-- views/measurements.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include partials/head %>
+</head>
+<body class="container">
+    <header>
+        <% include partials/header %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1><%= title %></h1>
+                    <h2>Historical Measurements</h2>
+                    <h3>Average Temperature</h3>
+                    <p id="average"> 27 &deg;C </p>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-striped">
+                        <thead>
+                            <th>Sensor</th>
+                            <th>Reading</th>
+                            <th>Date</th>
+                        </thead>
+                        <tbody>
+                            <% if(measurements) { %>
+                                <% measurements.forEach(function(measurement) { %>
+                                    <tr>
+                                        <td><%= measurement.sensor_id %></td>
+                                        <td><%= measurement.reading %> &deg;C</td>
+                                        <td><%= measurement.date_received %></td>
+                                    </tr>
+                                <% }); %>
+                            <% } else { %>
+                                <tr>
+                                    <td>No readings yet!</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            <% }; %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+		<div class="row" style="height:20vh;">
+			<div id="scroller"></div>
+		</div>
+
+		<div class="row" style="height:20vh;">
+            <div id="history"></div>
+		</div>
+		<div class="row" style="height:30vh;">
+			
+				<div id="sensor1"></div>
+				<div id="sensor2"></div>
+				<div id="sensor3"></div>
+				<div id="sensor4"></div>
+
+		</div>
+    </main>
+<!--
+            <div id="sensor1"></div>
+            <div id="sensor2"></div>
+            <div id="sensor3"></div>
+            <div id="sensor4"></div>
+-->
+
+    <footer>
+        <% include partials/footer %>
+    </footer>
+    
+</body>
+<script type="text/javascript" src="/javascripts/canvasjs.min.js"></script>
+<script type="text/javascript" src="/javascripts/chart.js"></script>
+</html>
+
