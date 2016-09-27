@@ -17,6 +17,7 @@ sp = new SerialPort.SerialPort(portName, portConfig);
 
 var routes = require('./routes/index');
 var measurements = require('./routes/measurements');
+var heatmap = require('./routes/heatmap');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/measurements', measurements);
+app.use('/heatmap', heatmap);
 
 
 // Connect to MySQL on start

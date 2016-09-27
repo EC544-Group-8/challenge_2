@@ -35,8 +35,10 @@ exports.calc_avg = function(){
   Measurement.getAllMostRecent(function (err, measurements) {
     // Sum all the readings (1 per node)
     // changed it from 1 and num_sensors+1
+	if(measurements){
       for(i = 0; i < NUM_SENSORS; i++){
         console.log(' looping ' + measurements[i].reading);
+	  }
         
 
         //  Check that reading is valid (not the default reset of -500 degrees C)
