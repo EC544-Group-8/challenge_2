@@ -34,7 +34,7 @@ CREATE TABLE `averages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `avg_reading` float(8,2) DEFAULT NULL,
   `date_received` datetime DEFAULT NULL,
-  `date_added` datetime DEFAULT CURRENT_TIMESTAMP,
+  `date_added` timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -53,7 +53,7 @@ CREATE TABLE `measurements` (
   `sensor_id` int(11) DEFAULT NULL,
   `reading` float(8,2) DEFAULT NULL,
   `date_received` datetime DEFAULT NULL,
-  `date_added` datetime DEFAULT CURRENT_TIMESTAMP,
+  `date_added` timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
