@@ -45,6 +45,8 @@ exports.getAll = function(done) {
   });
 };
 
+
+// Might be better off to use for the interpolation 
 exports.getAllBySensor = function(sensor_id, done) {
   db.get().query('SELECT * FROM measurements WHERE sensor_id = ?', sensor_id, function (err, rows) {
     if (err) return done(err);
@@ -68,6 +70,27 @@ exports.getAllMostRecent = function(done) {
     done(null, rows);
   });
 };
+
+
+// Query to get data for linear interpolation 
+// Then we will need to build 2D vectors of temp and time 
+// for each node and then pass this data to the interpolation 
+exports.getAllForInterpolant = function(done) {
+  var d = new Date;
+  now = [d.getFullYear(),
+               '0'+(d.getMonth()+1),
+                d.getDate(),
+                ].join('-')+' '+
+               [d.getHours(),
+                d.getMinutes(),
+                d.getSeconds()].join(':');
+  
+  db.get().query('SELECT * FROM measurements WHERE date_added < ?', now, function(err,rows) {
+    if(err) return done(err);
+    done(null, rows);
+  });
+};
+
 
 
 // Query to get Historical data for each Node based on a slider? or radio button on Front End

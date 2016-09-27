@@ -56,7 +56,22 @@ exports.calc_avg = function(){
       // Print the instantaneous average
       console.log('The Average is:   ' + avg.toFixed(2) + ' degrees Celsius');
       Measurement.saveAvg(avg.toFixed(2), function (err, insert_id) {
-      console.log('inserted average as id ' + insert_id);
+        console.log('inserted average as id ' + insert_id);
       });
   }); 
 };
+
+
+// Function to calc the average based on an interpolation of temp over time
+exports.calc_avg_interpolant = function() {
+
+  for(i = 1; i < 5; i++) {
+    Measurement.getAllBySensor(function(i,err, measurements) {
+      // linear interpolate to find most recent temp value for each node
+    
+  });
+
+  } // end for loop
+};
+
+
