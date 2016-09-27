@@ -29,7 +29,7 @@ int samples[NUMSAMPLES];
 
 void setup(void) {
   Serial.begin(9600);
-  xbeeSerial.begin(9600);
+  xbeeSerial.begin(115200);
   analogReference(EXTERNAL);
 }
 float getTemp();
