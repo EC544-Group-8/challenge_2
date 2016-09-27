@@ -1,6 +1,6 @@
 var db = require('../db.js');
 
-// ISSUES - the date added is manually set up to prepend the "month" with a zero... works until october ('10' instead of '9')
+// ISSUES - the date_received is manually set up to prepend the "month" with a zero... works until october ('10' instead of '9')
 
 exports.create = function(sensor_id, reading, done) {
   var d = new Date();
@@ -67,7 +67,7 @@ exports.getAllMostRecent = function(done) {
             d.getMinutes(),
             d.getSeconds()].join(':');
   
-  db.get().query('SELECT * FROM measurements WHERE date_received < ? + INTERVAL 10 MINUTE group by sensor_id', now, function(err,rows) {
+  db.get().query('SELECT * FROM measurements WHERE (date_received > (? - INTERVAL 10 MINUTE)) group by sensor_id', now, function (err,rows) {
     if(err) return done(err);
     done(null, rows);
   });
@@ -87,7 +87,7 @@ exports.getAllForInterpolant = function(done) {
                 d.getMinutes(),
                 d.getSeconds()].join(':');
   
-  db.get().query('SELECT * FROM measurements WHERE date_received < ?', now, function(err,rows) {
+  db.get().query('SELECT * FROM measurements', function (err,rows) {
     if(err) return done(err);
     done(null, rows);
   });
@@ -106,8 +106,8 @@ exports.getHistoricNode = function(sensor_id, range, done) {
                 d.getMinutes(),
                 d.getSeconds()].join(':');
 
-  db.get().query('SELECT * FROM measurements WHERE (date_received < (now + INTERVAL ?)) and sensor_id = ?',
-      range, sensor_id, function(err,rows) {
+  db.get().query('SELECT * FROM measurements WHERE (date_received > (NOW() - INTERVAL ?)) and sensor_id = ?',
+      range, sensor_id, function (err,rows) {
       if(err) return done(err);
       done(null, rows);
      });
@@ -124,7 +124,7 @@ exports.getAllHistorical = function(range, done) {
                 d.getMinutes(),
                 d.getSeconds()].join(':');
 
-  db.get().query('SELECT * FROM averages WHERE date_received < now + INTERVAL ?',range, function(err,rows) {
+  db.get().query('SELECT * FROM averages WHERE date_received > NOW() - INTERVAL ?', range, function (err,rows) {
     if(err) return done(err);
     done(null, rows);
   });

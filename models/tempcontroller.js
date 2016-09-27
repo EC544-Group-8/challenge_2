@@ -35,14 +35,17 @@ exports.calc_avg = function(){
   Measurement.getAllMostRecent(function (err, measurements) {
     // Sum all the readings (1 per node)
     // changed it from 1 and num_sensors+1
+    if(measurements){
       for(i = 0; i < NUM_SENSORS; i++){
-        console.log(' looping ' + measurements[i].reading);
-        
+        if(measurements[i].reading) {
+          console.log(' looping ' + measurements[i].reading);
+          
 
-        //  Check that reading is valid (not the default reset of -500 degrees C)
-        if(parseFloat(measurements[i].reading) > -500.00) {
-          total += parseFloat(measurements[i].reading);
-          divisor++;
+          //  Check that reading is valid (not the default reset of -500 degrees C)
+          if(parseFloat(measurements[i].reading) > -500.00) {
+            total += parseFloat(measurements[i].reading);
+            divisor++;
+          }
         }
       }
 
@@ -58,7 +61,8 @@ exports.calc_avg = function(){
       Measurement.saveAvg(avg.toFixed(2), function (err, insert_id) {
         console.log('inserted average as id ' + insert_id);
       });
-  }); 
+    }
+  });
 };
 
 
