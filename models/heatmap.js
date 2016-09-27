@@ -11,10 +11,10 @@ plotly.plot(data, layout, function (err, msg) {
 
 var Nrows=10;
 var Ncols=10;
-T00=20;
-T01=20;
-T11=25;
-T10=25;
+T00=22;//bottom left
+T01=25;//bottom right
+T11=20;//top right
+T10=22; //top left
 
 function Create2DArray(rows) {
   var arr = [];
@@ -31,8 +31,8 @@ var myarr=Create2DArray(Ncols);
 for (i = 0; i < (Ncols); ++i) {
     myarr[i] = Create2DArray(Nrows);
     for (j = 0; j < (Nrows); ++j) {
-    	x=(1/Ncols)*i;
-    	y=(1/Nrows)*j;
+    	x=(1/(Ncols-1))*i;
+    	y=(1/(Nrows-1))*j;
     	myarr[i][j]=T00*(1-x)*(1-y)+T10*(x)*(1-y)+T01*(1-x)*(y)+T11*(x)*(y);
     }
 }
