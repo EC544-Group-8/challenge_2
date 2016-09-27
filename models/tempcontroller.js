@@ -56,7 +56,7 @@ exports.calc_avg = function(){
       // Print the instantaneous average
       console.log('The Average is:   ' + avg.toFixed(2) + ' degrees Celsius');
       Measurement.saveAvg(avg.toFixed(2), function (err, insert_id) {
-        console.log('inserted average as id ' + insert_id);
+      console.log('inserted average as id ' + insert_id);
       });
   }); 
 };

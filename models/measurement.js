@@ -80,11 +80,29 @@ exports.getHistoricNode = function(sensor_id, range, done) {
                [d.getHours(),
                 d.getMinutes(),
                 d.getSeconds()].join(':');
+
   db.get().query('SELECT * FROM measurements WHERE (date_added < (now + INTERVAL ?)) and sensor_id = ?', 
       range, sensor_id, function(err,rows) {
       if(err) return done(err);
       done(null,rows);
      });
+};
+
+
+exports.getAllHistorical = function(range, done) {
+  var d = new Date;
+  var now = [d.getFullYear(),
+               '0'+(d.getMonth()+1),
+                d.getDate(),
+                ].join('-')+' '+
+               [d.getHours(),
+                d.getMinutes(),
+                d.getSeconds()].join(':');
+
+  db.get().query('SELECT * FROM averages WHERE date_added < now + INTERVAL ?',range, function(err,rows) {
+    if(err) return done(err);
+    done(null,rows);
+  });
 };
 
 
