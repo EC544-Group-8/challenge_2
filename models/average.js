@@ -39,7 +39,7 @@ exports.getAllByRange = function(range, done) {
                 d.getMinutes(),
                 d.getSeconds()].join(':');
 
-  db.get().query('SELECT * FROM averages WHERE date_received > (NOW() - INTERVAL ?)', range, function (err,rows) {
+  db.get().query('SELECT * FROM averages WHERE date_received > (NOW() - INTERVAL ?)', range, function (err, rows) {
     if(err) return done(err);
     done(null, rows);
   });
@@ -56,7 +56,7 @@ exports.getMostRecent = function(done) {
             d.getMinutes(),
             d.getSeconds()].join(':');
   
-  db.get().query('SELECT * FROM averages ORDER BY date_received DESC LIMIT 1', function (err,rows) {
+  db.get().query('SELECT * FROM averages ORDER BY date_received DESC LIMIT 1', function (err, rows) {
     if(err) return done(err);
     done(null, rows);
   });

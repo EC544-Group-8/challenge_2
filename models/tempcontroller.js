@@ -30,7 +30,7 @@ exports.calc_avg = function(){
   var divisor = 0;
 
   // Get the most the most recent reading from the last 10 minutes from each of the sensors
-  Measurement.getAllMostRecent(function (err, measurements) {
+  Measurement.getAllMostRecentFromLastTenMinutes(function (err, measurements) {
     // Sum all the readings (1 per node)
     if(measurements){
       for(i = 0; i < NUM_SENSORS; i++){
@@ -52,6 +52,11 @@ exports.calc_avg = function(){
       } else {
         avg = -500.00;
       }
+
+      // FOR TESTING ONLY - COMMENT OUT IF WE HAVE THE SENSORS AVAILABLE!!!
+      avg = Math.floor(Math.random() * 90 + 10);
+      // FOR TESTING ONLY - COMMENT OUT IF WE HAVE THE SENSORS AVAILABLE!!!
+      
       // Print the instantaneous average
       console.log('The Average is:   ' + avg.toFixed(2) + ' degrees Celsius');
       Average.create(avg.toFixed(2), function (err, insert_id) {

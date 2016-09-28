@@ -40,7 +40,7 @@ exports.getAllBySensor = function(sensor_id, done) {
 };
 
 // Query to obtain the most recent reading from each sensor from the last 10 minutes (if one exists for each sensor)
-exports.getAllMostRecentInRange = function(done) {
+exports.getAllMostRecentFromLastTenMinutes = function(done) {
   var d = new Date();
   now = [d.getFullYear(),
            '0'+(d.getMonth()+1),
