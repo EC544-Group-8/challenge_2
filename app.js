@@ -14,7 +14,7 @@ portConfig = {
 };
 var sp;
 sp = new SerialPort.SerialPort(portName, portConfig);
-
+// Create variables for the file location of any routes (connected to views)
 var routes = require('./routes/index');
 var measurements = require('./routes/measurements');
 
@@ -35,6 +35,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/measurements', measurements);
 
+// --------- DEFINE AJAX POST REQUESTS HERE --------- //
+var Average = require('./models/average.js');
+var Measurement = require('./models/measurement.js');
+
+// For retreiving the current average temp
+app.get('/get_current_avg_temp', function(req, res){
+  Average.getMostRecent(function(err, avg_temps){
+    if(avg_temps && avg_temps[0]){
+      // console.log('IM WORKING!!!!!!!!!');
+      res.send(avg_temps[0].avg_reading.toFixed(2));
+    } else {
+      // For testing with no DB (LUKE)
+      var avg = Math.floor(Math.random() * 90 + 10);
+      res.send(avg.toFixed(2));
+    }
+  });
+});
+
+
+
+// --------- END AJAX POST REQUESTS --------- //
 
 // Connect to MySQL on start
 db.connect(db.MODE_PRODUCTION, function(err) {

@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 var Measurement = require('../models/measurement.js');
 
-/* GET users listing. */
+/* GET measurement listing. */
 router.get('/', function(req, res, next) {
 
 	// Get from the DB
-	Measurement.getAll(function (err, measurements) {
+	Measurement.getAllMostRecentFromLastTenMinutes(function (err, measurements) {
 		res.render('measurements', { title: 'Measurements', measurements: measurements });
 	});
 });
