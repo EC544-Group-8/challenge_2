@@ -1,4 +1,5 @@
 var Measurement = require('./measurement.js');
+var Average = require('./average.js');
 
 var NUM_SENSORS = 4;
 
@@ -28,19 +29,14 @@ exports.calc_avg = function(){
   var total = 0;
   var divisor = 0;
 
-  // Get all the readings from the DB
-  //*****************************
-  // I changed this from .getAll
-  //*****************************
+  // Get the most the most recent reading from the last 10 minutes from each of the sensors
   Measurement.getAllMostRecent(function (err, measurements) {
     // Sum all the readings (1 per node)
-    // changed it from 1 and num_sensors+1
     if(measurements){
       for(i = 0; i < NUM_SENSORS; i++){
-        if(measurements[i].reading) {
-          console.log(' looping ' + measurements[i].reading);
+        if(measurements[i]) {
+          console.log('looping ' + measurements[i].reading);
           
-
           //  Check that reading is valid (not the default reset of -500 degrees C)
           if(parseFloat(measurements[i].reading) > -500.00) {
             total += parseFloat(measurements[i].reading);
@@ -58,7 +54,8 @@ exports.calc_avg = function(){
       }
       // Print the instantaneous average
       console.log('The Average is:   ' + avg.toFixed(2) + ' degrees Celsius');
-      Measurement.saveAvg(avg.toFixed(2), function (err, insert_id) {
+      Average.create(avg.toFixed(2), function (err, insert_id) {
+        console.log(err);
         console.log('inserted average as id ' + insert_id);
       });
     }
@@ -70,9 +67,9 @@ exports.calc_avg = function(){
 exports.calc_avg_interpolant = function() {
 
   for(i = 1; i < 5; i++) {
-    Measurement.getAllBySensor(function(i,err, measurements) {
+    Measurement.getAllBySensor(function (i,err, measurements) {
       // linear interpolate to find most recent temp value for each node
-    
+  
   });
 
   } // end for loop

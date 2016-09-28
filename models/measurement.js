@@ -2,6 +2,7 @@ var db = require('../db.js');
 
 // ISSUES - the date_received is manually set up to prepend the "month" with a zero... works until october ('10' instead of '9')
 
+// Query to insert the measurement from a sensor into the measurements data table
 exports.create = function(sensor_id, reading, done) {
   var d = new Date();
   date_received = [d.getFullYear(),
@@ -21,25 +22,7 @@ exports.create = function(sensor_id, reading, done) {
   });
 };
 
-// Query to insert the calculated averages into the averages data table
-exports.saveAvg = function(reading, done) {
-  var d = new Date();
-  date_received = [d.getFullYear(),
-                '0'+(d.getMonth()+1),
-                d.getDate(),
-                ].join('-')+' '+
-               [d.getHours(),
-                d.getMinutes(),
-                d.getSeconds()].join(':');
-
-  var values = [reading, date_received];
-  db.get().query('INSERT INTO averages (reading, date_received) VALUES(?,?)', values, function(err, result) {
-    if(err) return done(err);
-    done(null,result.insertId);
-  });
-};
-
-
+// Query to get all the rows from the measurements table
 exports.getAll = function(done) {
   db.get().query('SELECT * FROM measurements', function (err, rows) {
     if (err) return done(err);
@@ -48,7 +31,7 @@ exports.getAll = function(done) {
 };
 
 
-// Might be better off to use for the interpolation 
+// Query to get all the rows for a particular sensor - Might be better off to use for the interpolation 
 exports.getAllBySensor = function(sensor_id, done) {
   db.get().query('SELECT * FROM measurements WHERE sensor_id = ?', sensor_id, function (err, rows) {
     if (err) return done(err);
@@ -56,8 +39,8 @@ exports.getAllBySensor = function(sensor_id, done) {
   });
 };
 
-// Query to obtain readings from each Node in the last 10 minutes
-exports.getAllMostRecent = function(done) {
+// Query to obtain the most recent reading from each sensor from the last 10 minutes (if one exists for each sensor)
+exports.getAllMostRecentInRange = function(done) {
   var d = new Date();
   now = [d.getFullYear(),
            '0'+(d.getMonth()+1),
@@ -67,36 +50,32 @@ exports.getAllMostRecent = function(done) {
             d.getMinutes(),
             d.getSeconds()].join(':');
   
-  db.get().query('SELECT * FROM measurements WHERE (date_received > (? - INTERVAL 10 MINUTE)) group by sensor_id', now, function (err,rows) {
+  db.get().query('SELECT m1.* FROM measurements m1 WHERE m1.date_received = (SELECT MAX(m2.date_received) FROM measurements m2 WHERE m2.sensor_id = m1.sensor_id AND date_received > DATE_SUB(NOW(), INTERVAL 600 MINUTE ))', function (err,rows) {
     if(err) return done(err);
     done(null, rows);
   });
 };
 
-
-// Query to get data for linear interpolation 
-// Then we will need to build 2D vectors of temp and time 
-// for each node and then pass this data to the interpolation 
-exports.getAllForInterpolant = function(done) {
+// Query to get all the calculated averages over the last range of time
+exports.getAllByRange = function(range, done) {
   var d = new Date();
-  now = [d.getFullYear(),
+  var now = [d.getFullYear(),
                '0'+(d.getMonth()+1),
                 d.getDate(),
                 ].join('-')+' '+
                [d.getHours(),
                 d.getMinutes(),
                 d.getSeconds()].join(':');
-  
-  db.get().query('SELECT * FROM measurements', function (err,rows) {
+
+  db.get().query('SELECT * FROM averages WHERE (date_received > (NOW() - INTERVAL ?))', range, function (err,rows) {
     if(err) return done(err);
     done(null, rows);
   });
 };
 
 
-
-// Query to get Historical data for each Node based on a slider? or radio button on Front End
-exports.getHistoricNode = function(sensor_id, range, done) {
+// Query to get all the rows for a particular sensor based on a range (slider? or radio button on Front End)
+exports.getBySensorByRange = function(sensor_id, range, done) {
   var d = new Date();
   var now = [d.getFullYear(),
                '0'+(d.getMonth()+1),
@@ -114,22 +93,26 @@ exports.getHistoricNode = function(sensor_id, range, done) {
 };
 
 
-exports.getAllHistorical = function(range, done) {
+
+// TODO: Update this or delete it, as it duplicates the exports.getAll function as currently written
+// Query to get data for linear interpolation 
+// Then we will need to build 2D vectors of temp and time 
+// for each sensor and then pass this data to the interpolation 
+exports.getAllForInterpolant = function(done) {
   var d = new Date();
-  var now = [d.getFullYear(),
+  now = [d.getFullYear(),
                '0'+(d.getMonth()+1),
                 d.getDate(),
                 ].join('-')+' '+
                [d.getHours(),
                 d.getMinutes(),
                 d.getSeconds()].join(':');
-
-  db.get().query('SELECT * FROM averages WHERE date_received > NOW() - INTERVAL ?', range, function (err,rows) {
+  
+  db.get().query('SELECT * FROM measurements', function (err,rows) {
     if(err) return done(err);
     done(null, rows);
   });
 };
-
 
 // Query to get data necessary for Total Historical Average
 // Maybe we want to store each calulated Total average into another table

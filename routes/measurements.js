@@ -6,7 +6,7 @@ var Measurement = require('../models/measurement.js');
 router.get('/', function(req, res, next) {
 
 	// Get from the DB
-	Measurement.getAll(function (err, measurements) {
+	Measurement.getAllMostRecent(function (err, measurements) {
 		res.render('measurements', { title: 'Measurements', measurements: measurements });
 	});
 });
