@@ -42,7 +42,7 @@ var Measurement = require('./models/measurement.js');
 // For retreiving the current average temp
 app.get('/get_current_avg_temp', function(req, res){
   Average.getMostRecent(function(err, avg_temps){
-    if(avg_temps[0]){
+    if(avg_temps && avg_temps[0]){
       // console.log('IM WORKING!!!!!!!!!');
       res.send(avg_temps[0].avg_reading.toFixed(2));
     } else {
