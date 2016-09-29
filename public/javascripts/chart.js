@@ -144,9 +144,13 @@ $(document).ready(function () {
 
 		var updateChart = function () {
 			
-			// Get current avg temp
+			// Get current avg temp and time
 			$.get('/get_current_avg_temp', function(data) {
-				temp = parseFloat(data);
+				temp = parseFloat(data.avg_reading);
+				// YYYY-MM-DD HH:MM:SS
+				// parse time string to 
+				// NEED TO PARSE TODO
+				time = parseFloat(data.date_received);
 			});
 
 			// Get current time
@@ -182,7 +186,7 @@ $(document).ready(function () {
 			// Go to the route on the server that is designed to return the most recent average
 			$.get('/get_current_avg_temp', function(data) {
 				// Update the HTML element that displays this data, and change its value
-				$('#average').html(data + "&deg;C");
+				$('#average').html(data.avg_reading.toFixed(2) + "&deg;C");
 			});
 		};
 		// generates first set of dataPoints
