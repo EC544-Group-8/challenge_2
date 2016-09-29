@@ -54,7 +54,7 @@ exports.calc_avg = function(){
       }
 
       // FOR TESTING ONLY - COMMENT OUT IF WE HAVE THE SENSORS AVAILABLE!!!
-      avg = Math.floor(Math.random() * 90 + 10);
+      // avg = Math.floor(Math.random() * 90 + 10);
       // FOR TESTING ONLY - COMMENT OUT IF WE HAVE THE SENSORS AVAILABLE!!!
       
       // Print the instantaneous average

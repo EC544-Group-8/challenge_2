@@ -44,11 +44,11 @@ app.get('/get_current_avg_temp', function(req, res){
   Average.getMostRecent(function(err, avg_temps){
     if(avg_temps && avg_temps[0]){
       // console.log('IM WORKING!!!!!!!!!');
-      res.send(avg_temps[0].avg_reading.toFixed(2));
+      res.send(avg_temps[0]);
     } else {
       // For testing with no DB (LUKE)
-      var avg = Math.floor(Math.random() * 90 + 10);
-      res.send(avg.toFixed(2));
+      // var avg = Math.floor(Math.random() * 90 + 10);
+      // res.send(avg.toFixed(2));
     }
   });
 });

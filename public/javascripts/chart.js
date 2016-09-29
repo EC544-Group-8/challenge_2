@@ -1,3 +1,19 @@
+var parse_time = function(time, done) {
+	// YYYY-MM-DDTHH:MM:SS.0007  to seconds
+	// console.log("full time is " + time);
+	var year = parseInt(time.substr(0,4),10);
+	var month = parseInt(time.substr(5,2),10);
+	var day = parseInt(time.substr(8,2),10);
+	var hour = parseInt(time.substr(11,2),10); // TODO! get this in current timezone
+	var minute = parseInt(time.substr(14,2),10);
+	var second = parseInt(time.substr(17,2),10);
+	// console.log("time is: " + time_str);
+
+	var time_date = new Date(year,month,day,hour,minute,second);
+	// console.log("seconds is: " + seconds);
+	done(time_date);
+};
+
 $(document).ready(function () {
 	// Connect to Database
 	// Receive Individual Data (already built)
@@ -137,52 +153,45 @@ $(document).ready(function () {
 			}]
 		});
 
-		var time = 0;
-		var temp = 100;	
+		var time = new Date(2012,01,1);
+		var temp = -500;	
 		var updateInterval = 1000;
-		var dataLength = 500; // number of dataPoints visible at any point
+		var dataLength = 50; // number of dataPoints visible at any point
 
-		var updateChart = function (count) {
+		var updateChart = function () {
 			
-			// =============================================================================
-			// Generate Random data for test
-			count = count || 1;
-			// count is number of times loop runs to generate random dataPoints.
-			
-			for (var j = 0; j < count; j++) {	
-				temp = temp +  Math.round(5 + Math.random() *(-5-5));
+			// Get current avg temp and time
+			$.get('/get_current_avg_temp', function(data) {
+				temp = parseFloat(data.avg_reading);
+				console.log('DATA: '+data.date_received);
+				parse_time(data.date_received, function(new_time) {
+					time = new_time;
+				});
+			});
+			// Get current time
+			// TODO
+			// console.log(time);
+			// console.log(temp);
+
+			if (temp > -500){
+				console.log("got here with t=" + time);
 				realtime_data.push({
 					x: time,
 					y: temp
 				});
-				time++;
-			};
-			// =============================================================================
+			}
 
-			// =============================================================================
-			// Add temperature Data
-			// xVal = <INSERT TIME DATA>; // time of measurement	
-			// yVal = <INSERT TEMP DATA>; // temp measured
-
-			// realtime_data.push({
-				// x: xVal,
-				// y: yVal
-			// });
-			// =============================================================================
-
-
-			// =============================================================================
-			// Scroll Chart if (realtime_data.length > dataLength)
+			// Scroll Chart 
+			if (realtime_data.length > dataLength)
 			{
 				realtime_data.shift();
 			}
-			// =============================================================================
+
+			console.log("PRINTING REALTIME DATA:");
+			console.log(realtime_data.length);
 			
-			// =============================================================================
 			// Update Chart
 			chart.render();
-			// history_chart.render();
-			// =============================================================================
 
 		};
 
@@ -191,7 +200,7 @@ $(document).ready(function () {
 			// Go to the route on the server that is designed to return the most recent average
 			$.get('/get_current_avg_temp', function(data) {
 				// Update the HTML element that displays this data, and change its value
-				$('#average').html(data + "&deg;C");
+				$('#average').html(data.avg_reading.toFixed(2) + "&deg;C");
 			});
 		};
 		// generates first set of dataPoints
@@ -199,14 +208,13 @@ $(document).ready(function () {
 
 		// Load Historical Data based on user choice (or default)
 		history_chart.render();
-		sensor1_chart.render();
-		sensor2_chart.render();
-		sensor3_chart.render();
-		sensor4_chart.render();
+		// sensor1_chart.render();
+		// sensor2_chart.render();
+		// sensor3_chart.render();
+		// sensor4_chart.render();
 
 		// update displays after specified time. 
-		setInterval(function(){updateChart();}, updateInterval);
+		setInterval(function(){updateChart(1);}, updateInterval);
 		setInterval(function(){updateCurrentTemp();}, updateInterval);
 	};
-
 });
