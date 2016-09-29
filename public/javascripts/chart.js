@@ -1,3 +1,16 @@
+var parse_time = function(time, done) {
+	// YYYY-MM-DDTHH:MM:SS.0007  to seconds
+	// console.log("full time is " + time);
+	var time_str = time.substr(11,8);
+	// console.log("time is: " + time_str);
+
+	var t = time_str.split(':');
+
+	var seconds = (+t[0]) * 60 * 60 + (+t[1]) * 60 + (+t[2]);
+	// console.log("seconds is: " + seconds);
+	done(seconds);
+};
+
 $(document).ready(function () {
 	// Connect to Database
 	// Receive Individual Data (already built)
@@ -147,12 +160,10 @@ $(document).ready(function () {
 			// Get current avg temp and time
 			$.get('/get_current_avg_temp', function(data) {
 				temp = parseFloat(data.avg_reading);
-				// YYYY-MM-DD HH:MM:SS
-				// parse time string to 
-				// NEED TO PARSE TODO
-				time = parseFloat(data.date_received);
+				parse_time(data.date_received, function(new_time) {
+					time = new_time;
+				});
 			});
-
 			// Get current time
 			// TODO
 			console.log(time);
@@ -164,7 +175,6 @@ $(document).ready(function () {
 					x: time,
 					y: temp
 				});
-				time++;
 			}
 
 			// Scroll Chart 
