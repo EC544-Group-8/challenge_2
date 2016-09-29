@@ -56,6 +56,24 @@ exports.getAllMostRecentFromLastTenMinutes = function(done) {
   });
 };
 
+// Query to obtain the most recent reading for a particular sensor
+exports.getMostRecentBySensor = function(done) {
+  var d = new Date();
+  now = [d.getFullYear(),
+           '0'+(d.getMonth()+1),
+            d.getDate(),
+            ].join('-')+' '+
+           [d.getHours(),
+            d.getMinutes(),
+            d.getSeconds()].join(':');
+  
+  db.get().query('SELECT * FROM measurements WHERE sensor_id = ? ORDER BY date_received DESC LIMIT 1', function (err, rows) {
+    if(err) return done(err);
+    done(null, rows);
+  });
+};
+
+
 // Query to get all the calculated averages over the last range of time
 exports.getAllByRange = function(range, done) {
   var d = new Date();

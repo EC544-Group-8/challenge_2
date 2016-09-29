@@ -1,14 +1,17 @@
 var parse_time = function(time, done) {
 	// YYYY-MM-DDTHH:MM:SS.0007  to seconds
 	// console.log("full time is " + time);
-	var time_str = time.substr(11,8);
+	var year = parseInt(time.substr(0,4),10);
+	var month = parseInt(time.substr(5,2),10);
+	var day = parseInt(time.substr(8,2),10);
+	var hour = parseInt(time.substr(11,2),10); // TODO! get this in current timezone
+	var minute = parseInt(time.substr(14,2),10);
+	var second = parseInt(time.substr(17,2),10);
 	// console.log("time is: " + time_str);
 
-	var t = time_str.split(':');
-
-	var seconds = (+t[0]) * 60 * 60 + (+t[1]) * 60 + (+t[2]);
+	var time_date = new Date(year,month,day,hour,minute,second);
 	// console.log("seconds is: " + seconds);
-	done(seconds);
+	done(time_date);
 };
 
 $(document).ready(function () {
@@ -150,7 +153,7 @@ $(document).ready(function () {
 			}]
 		});
 
-		var time = 0;
+		var time = new Date(2012,01,1);
 		var temp = -500;	
 		var updateInterval = 1000;
 		var dataLength = 50; // number of dataPoints visible at any point
@@ -160,14 +163,15 @@ $(document).ready(function () {
 			// Get current avg temp and time
 			$.get('/get_current_avg_temp', function(data) {
 				temp = parseFloat(data.avg_reading);
+				console.log('DATA: '+data.date_received);
 				parse_time(data.date_received, function(new_time) {
 					time = new_time;
 				});
 			});
 			// Get current time
 			// TODO
-			console.log(time);
-			console.log(temp);
+			// console.log(time);
+			// console.log(temp);
 
 			if (temp > -500){
 				console.log("got here with t=" + time);
