@@ -16,31 +16,31 @@ $(document).ready(function () {
 
 		//=====================================================
 		// Test data
-		// for(i=0; i <100; i++){
-		// 	var xVal = 2*i*i + 2*i + 4;
-		// 	var yVal =	4*i - 3;
-		// 	historical_data.push({
-		// 		x:  xVal,
-		// 		y: 	yVal
-		// 	});
+		for(i=0; i <100; i++){
+			var xVal = 2*i*i + 2*i + 4;
+			var yVal =	4*i - 3;
+			historical_data.push({
+				x:  xVal,
+				y: 	yVal
+			});
 			
-		// 	sensor1_data.push({
-		// 		x:  xVal,
-		// 		y: 	yVal
-		// 	});
-		// 	sensor2_data.push({
-		// 		x:  xVal,
-		// 		y: 	yVal
-		// 	});
-		// 	sensor3_data.push({
-		// 		x:  xVal,
-		// 		y: 	yVal
-		// 	});
-		// 	sensor4_data.push({
-		// 		x:  xVal,
-		// 		y: 	yVal
-		// 	});
-		// }
+			sensor1_data.push({
+				x:  xVal,
+				y: 	yVal
+			});
+			sensor2_data.push({
+				x:  xVal,
+				y: 	yVal
+			});
+			sensor3_data.push({
+				x:  xVal,
+				y: 	yVal
+			});
+			sensor4_data.push({
+				x:  xVal,
+				y: 	yVal
+			});
+		}
 		//=====================================================
 
 		var chart = new CanvasJS.Chart("scroller",{
@@ -90,7 +90,6 @@ $(document).ready(function () {
 				dataPoints: sensor1_data 
 			}]
 		});
-
 		var sensor2_chart = new CanvasJS.Chart("sensor2",{
 			title :{
 				text: "Living Room Temperature"
@@ -106,7 +105,6 @@ $(document).ready(function () {
 				dataPoints: sensor2_data 
 			}]
 		});
-
 		var sensor3_chart = new CanvasJS.Chart("sensor3",{
 			title :{
 				text: "Bedroom Temperature"
@@ -140,51 +138,42 @@ $(document).ready(function () {
 		});
 
 		var time = 0;
-		var temp = 100;	
+		var temp = -500;	
 		var updateInterval = 1000;
-		var dataLength = 500; // number of dataPoints visible at any point
+		var dataLength = 50; // number of dataPoints visible at any point
 
-		var updateChart = function (count) {
+		var updateChart = function () {
 			
-			// =============================================================================
-			// Generate Random data for test
-			// count = count || 1;
-			// count is number of times loop runs to generate random dataPoints.
-			// for (var j = 0; j < count; j++) {	
-			// 	temp = temp +  Math.round(5 + Math.random() *(-5-5));
-			// 	realtime_data.push({
-			// 		x: time,
-			// 		y: temp
-			// 	});
-			// 	time++;
-			// };
-			// =============================================================================
-
-			// =============================================================================
-			Add temperature Data
-			// xVal = <INSERT TIME DATA>; // time of measurement	
-			yVal = ; // temp measured
-			
+			// Get current avg temp
 			$.get('/get_current_avg_temp', function(data) {
-				// Update the HTML element that displays this data, and change its value
-				yVal = data;
+				temp = parseFloat(data);
 			});
 
-			realtime_data.push({
-				x: time++, // time still fake for now
-				y: yVal
-			});
-			
+			// Get current time
+			// TODO
+			console.log(time);
+			console.log(temp);
 
+			if (temp > -500){
+				console.log("got here with t=" + time);
+				realtime_data.push({
+					x: time,
+					y: temp
+				});
+				time++;
+			}
 
-			// Scroll Chart if (realtime_data.length > dataLength)
+			// Scroll Chart 
+			if (realtime_data.length > dataLength)
 			{
 				realtime_data.shift();
 			}
 
+			console.log("PRINTING REALTIME DATA:");
+			console.log(realtime_data.length);
+			
 			// Update Chart
 			chart.render();
-			// history_chart.render();
 
 		};
 
@@ -201,14 +190,13 @@ $(document).ready(function () {
 
 		// Load Historical Data based on user choice (or default)
 		history_chart.render();
-		sensor1_chart.render();
-		sensor2_chart.render();
-		sensor3_chart.render();
-		sensor4_chart.render();
+		// sensor1_chart.render();
+		// sensor2_chart.render();
+		// sensor3_chart.render();
+		// sensor4_chart.render();
 
 		// update displays after specified time. 
-		setInterval(function(){updateChart();}, updateInterval);
+		setInterval(function(){updateChart(1);}, updateInterval);
 		setInterval(function(){updateCurrentTemp();}, updateInterval);
 	};
-
 });
