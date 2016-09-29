@@ -43,15 +43,20 @@ var Measurement = require('./models/measurement.js');
 app.get('/get_current_avg_temp', function(req, res){
   Average.getMostRecent(function(err, avg_temps){
     if(avg_temps && avg_temps[0]){
-      // console.log('IM WORKING!!!!!!!!!');
       res.send(avg_temps[0]);
-    } else {
-      // For testing with no DB (LUKE)
-      // var avg = Math.floor(Math.random() * 90 + 10);
-      // res.send(avg.toFixed(2));
     }
   });
 });
+
+// For retreiving the historic average temp
+app.get('/get_hist_avg_temp', function(req, res){
+  Average.getAll(function(err, hist_temps){
+    if(hist_temps){
+      res.send(hist_temps);
+    }
+  });
+});
+
 
 
 

@@ -35,10 +35,10 @@ $(document).ready(function () {
 		for(i=0; i <100; i++){
 			var xVal = 2*i*i + 2*i + 4;
 			var yVal =	4*i - 3;
-			historical_data.push({
-				x:  xVal,
-				y: 	yVal
-			});
+			// historical_data.push({
+			// 	x:  xVal,
+			// 	y: 	yVal
+			// });
 			
 			sensor1_data.push({
 				x:  xVal,
@@ -75,6 +75,28 @@ $(document).ready(function () {
 			}]
 		});
 
+		// LIKELY ISSUE
+		// Get current historical temp and time
+		$.get('/get_hist_avg_temp', function(hist_data) {
+			// Loop through all historic data
+			for (var i = 0; i < hist_data.length; i++) {
+				// Get the temp and the time
+				var xtemp = parseFloat(hist_data[i].avg_reading);
+				// console.log('DATA: '+data.date_received);
+				parse_time(hist_data[i].date_received, function(new_time) {
+					var xtime = new_time;
+				});
+
+				// Push it into the historic_data array for the chart
+				historical_data.push({
+					x:  xtemp,
+					y: 	xtime
+				});
+			};
+
+
+		});
+
 		var history_chart = new CanvasJS.Chart("history",{
 			title :{
 				text: "Historical Average Temperature"
@@ -87,7 +109,7 @@ $(document).ready(function () {
 			},
 			data: [{
 				type: "line",
-				dataPoints: historical_data 
+				dataPoints: historical_data
 			}]
 		});
 
@@ -175,15 +197,22 @@ $(document).ready(function () {
 
 			if (temp > -500){
 				console.log("got here with t=" + time);
+				// Add the new reading to the realtime chart
 				realtime_data.push({
+					x: time,
+					y: temp
+				});
+				// Add the new reading to the historical chart
+				historical_data.push({
 					x: time,
 					y: temp
 				});
 			}
 
-			// Scroll Chart 
+			// Scroll Realtime Chart if necessary
 			if (realtime_data.length > dataLength)
 			{
+				// pop the oldest reading
 				realtime_data.shift();
 			}
 
