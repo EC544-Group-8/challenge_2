@@ -81,7 +81,7 @@ app.get('/get_hist_sensor_2',function(req,res) {
 // For retreiving the historic average data for sensor 3
 app.get('/get_hist_sensor_3',function(req,res) {
   Measurement.getAllBySensor(3,function(err,s3_hist_data) {
-    if(s_hist_data) {
+    if(s3_hist_data) {
       res.send(s3_hist_data);
     }
   });
