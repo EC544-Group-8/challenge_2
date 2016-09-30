@@ -78,27 +78,27 @@ $(document).ready(function () {
 			}]
 		});
 
-		// LIKELY ISSUE
-		// Get current historical temp and time
+
+		// Get current historical temp and time data
 		$.get('/get_hist_avg_temp', function(hist_data) {
 			// Loop through all historic data
-			for (var i = 0; i < hist_data.length; i++) { 
+			for (var i = 0; i < hist_data.length; i++) {
 				// Get the temp and the time
+				var xtime;
 				var xtemp = parseFloat(hist_data[i].avg_reading);
-				// console.log('DATA: '+data.date_received);
+				// Convert the time to the proper format			
 				parse_time(hist_data[i].date_received, function(new_time) {
-					var xtime = new_time;
+					xtime = new_time;
 				});
 
 				// Push it into the historic_data array for the chart
 				historical_data.push({
-					x:  xtemp,
-					y: 	xtime
+					x:  xtime,
+					y:  xtemp
 				});
 			};
-
 		});
-
+		// Prepare the historical chart
 		var history_chart = new CanvasJS.Chart("history",{
 			title :{
 				text: "Historical Average Temperature"
@@ -118,7 +118,7 @@ $(document).ready(function () {
 
 
 
-		$.get('/get_hist_sensor_1', function (s1_hist_data) {
+		$.get('/get_hist_sensor/1', function (s1_hist_data) {
 			for (var i = 0; i < s1_hist_data.length; i++) {
 				var xtemp = parseFloat(s1_hist_data[i].avg_reading);
 				parse_time(s1_hist_data[i].date_received, function(new_time) {
@@ -134,7 +134,7 @@ $(document).ready(function () {
 		});
 
 
-		$.get('/get_hist_sensor_2', function (s2_hist_data) {
+		$.get('/get_hist_sensor/2', function (s2_hist_data) {
 			for (var i = 0; i < s2_hist_data.length; i++) {
 				var xtemp = parseFloat(s2_hist_data[i].avg_reading);
 				parse_time(s2_hist_data[i].date_received, function(new_time) {
@@ -150,7 +150,7 @@ $(document).ready(function () {
 		});
 
 
-		$.get('/get_hist_sensor_3', function (s3_hist_data) {
+		$.get('/get_hist_sensor/3', function (s3_hist_data) {
 			for (var i = 0; i < s3_hist_data.length; i++) {
 				var xtemp = parseFloat(s3_hist_data[i].avg_reading);
 				parse_time(s1_hist_data[i].date_received, function(new_time) {
@@ -167,7 +167,7 @@ $(document).ready(function () {
 
 
 
-		$.get('/get_hist_sensor_4', function (s4_hist_data) {
+		$.get('/get_hist_sensor/4', function (s4_hist_data) {
 			for (var i = 0; i < s4_hist_data.length; i++) {
 				var xtemp = parseFloat(s4_hist_data[i].avg_reading);
 				parse_time(s4_hist_data[i].date_received, function(new_time) {
@@ -288,12 +288,10 @@ $(document).ready(function () {
 				// pop the oldest reading
 				realtime_data.shift();
 			}
-
-			console.log("PRINTING REALTIME DATA:");
-			console.log(realtime_data.length);
 			
 			// Update Chart
 			chart.render();
+			history_chart.render();
 
 		};
 
