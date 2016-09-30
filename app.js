@@ -58,9 +58,51 @@ app.get('/get_hist_avg_temp', function(req, res){
 });
 
 
+// For retreiving the historic average data for sensor 1
+app.get('/get_hist_sensor_1',function(req,res) {
+  Measurement.getAllBySensor(1,function(err,s1_hist_data) {
+    if(s1_hist_data) {
+      res.send(s1_hist_data);
+    }
+  });
+});
+
+
+// For retreiving the historic average data for sensor 2
+app.get('/get_hist_sensor_2',function(req,res) {
+  Measurement.getAllBySensor(2,function(err,s2_hist_data) {
+    if(s2_hist_data) {
+      res.send(s2_hist_data);
+    }
+  });
+});
+
+
+// For retreiving the historic average data for sensor 3
+app.get('/get_hist_sensor_3',function(req,res) {
+  Measurement.getAllBySensor(3,function(err,s3_hist_data) {
+    if(s_hist_data) {
+      res.send(s3_hist_data);
+    }
+  });
+});
+
+
+// For retreiving the historic average data for sensor 4
+app.get('/get_hist_sensor_4',function(req,res) {
+  Measurement.getAllBySensor(4,function(err,s4_hist_data) {
+    if(s4_hist_data) {
+      res.send(s4_hist_data);
+    }
+  });
+});
+
+
 
 
 // --------- END AJAX POST REQUESTS --------- //
+
+
 
 // Connect to MySQL on start
 db.connect(db.MODE_PRODUCTION, function(err) {

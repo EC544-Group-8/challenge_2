@@ -1,3 +1,4 @@
+// What type of function declarations are these?
 var parse_time = function(time, done) {
 	// YYYY-MM-DDTHH:MM:SS.0007  to seconds
 	// console.log("full time is " + time);
@@ -94,7 +95,6 @@ $(document).ready(function () {
 				});
 			};
 
-
 		});
 
 		var history_chart = new CanvasJS.Chart("history",{
@@ -113,6 +113,75 @@ $(document).ready(function () {
 			}]
 		});
 
+
+
+
+		$.get('/get_hist_sensor_1', function (s1_hist_data) {
+			for (var i = 0; i < s1_hist_data.length; i++) {
+				var xtemp = parseFloat(s1_hist_data[i].avg_reading);
+				parse_time(s1_hist_data[i].date_received, function(new_time) {
+					var xtime = new_time;
+				});
+
+				// Push it to the array for storage
+				sensor1_data.push({
+					x: xtemp,
+					y: xtime
+				});
+			};
+		});
+
+
+		$.get('/get_hist_sensor_2', function (s2_hist_data) {
+			for (var i = 0; i < s2_hist_data.length; i++) {
+				var xtemp = parseFloat(s2_hist_data[i].avg_reading);
+				parse_time(s2_hist_data[i].date_received, function(new_time) {
+					var xtime = new_time;
+				});
+
+				// Push it to the array for storage
+				sensor2_data.push({
+					x: xtemp,
+					y: xtime
+				});
+			};
+		});
+
+
+		$.get('/get_hist_sensor_3', function (s3_hist_data) {
+			for (var i = 0; i < s3_hist_data.length; i++) {
+				var xtemp = parseFloat(s3_hist_data[i].avg_reading);
+				parse_time(s1_hist_data[i].date_received, function(new_time) {
+					var xtime = new_time;
+				});
+
+				// Push it to the array for storage
+				sensor3_data.push({
+					x: xtemp,
+					y: xtime
+				});
+			};
+		});
+
+
+
+		$.get('/get_hist_sensor_4', function (s4_hist_data) {
+			for (var i = 0; i < s4_hist_data.length; i++) {
+				var xtemp = parseFloat(s4_hist_data[i].avg_reading);
+				parse_time(s4_hist_data[i].date_received, function(new_time) {
+					var xtime = new_time;
+				});
+
+				// Push it to the array for storage
+				sensor4_data.push({
+					x: xtemp,
+					y: xtime
+				});
+			};
+		});
+
+
+
 		var sensor1_chart = new CanvasJS.Chart("sensor1",{
 			title :{
 				text: "Kitchen Temperature"
@@ -128,6 +197,7 @@ $(document).ready(function () {
 				dataPoints: sensor1_data 
 			}]
 		});
+
 		var sensor2_chart = new CanvasJS.Chart("sensor2",{
 			title :{
 				text: "Living Room Temperature"
@@ -143,6 +213,7 @@ $(document).ready(function () {
 				dataPoints: sensor2_data 
 			}]
 		});
+		
 		var sensor3_chart = new CanvasJS.Chart("sensor3",{
 			title :{
 				text: "Bedroom Temperature"
@@ -245,5 +316,6 @@ $(document).ready(function () {
 		// update displays after specified time. 
 		setInterval(function(){updateChart(1);}, updateInterval);
 		setInterval(function(){updateCurrentTemp();}, updateInterval);
+
 	};
 });
