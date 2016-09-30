@@ -112,6 +112,7 @@ $(document).ready(function () {
 			data: [{
 				type: "line",
 				dataPoints: historical_data
+				console.log('We are r/x historical data...' + historical_data[10]);
 			}]
 		});
 
