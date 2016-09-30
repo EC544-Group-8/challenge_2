@@ -53,7 +53,8 @@ var layout = {fileopt : "overwrite",
 
 };
 
-plotly.plot(data, layout, function (err, msg) {
+HMAP = document.getElementById('Hmap');
+plotly.plot(HMAP,data, layout, function (err, msg) {
 	if (err) return console.log(err);
 	console.log(msg);
 });
