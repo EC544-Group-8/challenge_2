@@ -217,25 +217,20 @@ $(document).ready(function () {
 		var time = new Date(2012,01,1);
 		var temp = -500;	
 		var updateInterval = 1000;
-		var dataLength = 50; // number of dataPoints visible at any point
+		var dataLength = 300; // number of dataPoints visible at any point
 
 		var updateChart = function () {
-			
 			// Get current avg temp and time
 			$.get('/get_current_avg_temp', function(data) {
 				temp = parseFloat(data.avg_reading);
-				console.log('DATA: '+data.date_received);
+				// console.log('DATA: '+data.date_received);
 				parse_time(data.date_received, function(new_time) {
 					time = new_time;
 				});
 			});
-			// Get current time
-			// TODO
-			// console.log(time);
-			// console.log(temp);
 
+			// Update the charts if there is a new average reading
 			if (temp > -500){
-				console.log("got here with t=" + time);
 				// Add the new reading to the realtime chart
 				realtime_data.push({
 					x: time,
@@ -249,8 +244,7 @@ $(document).ready(function () {
 			}
 
 			// Scroll Realtime Chart if necessary
-			if (realtime_data.length > dataLength)
-			{
+			if (realtime_data.length > dataLength) {
 				// pop the oldest reading
 				realtime_data.shift();
 			}
@@ -258,11 +252,58 @@ $(document).ready(function () {
 			// Update Chart
 			chart.render();
 			history_chart.render();
-			sensor1_chart.render();
-			sensor2_chart.render();
-			sensor3_chart.render();
-			sensor4_chart.render();
 
+		};
+
+		var last_measurement_updated_time = new Date();
+		// This function needs to update the current temp variable every interval
+		var updateSensorCharts = function() {
+			// Go to the route on the server that is designed to return the most recent average
+			$.get('/get_most_recent_measurement', function(last_measurement) {
+				console.log(last_measurement);
+				var xtime;
+				var xtemp = parseFloat(last_measurement.reading);
+				
+				parse_time(last_measurement.date_received, function(new_time) {
+					xtime = new_time;
+				});
+
+				// Only update this if its not the same as the last one updated
+				if(xtime != last_measurement_updated_time) {
+					if(last_measurement.sensor_id == 1) {
+						// Push it to the array for storage
+						sensor1_data.push({
+							x: xtime,
+							y: xtemp
+						});
+						sensor1_chart.render();
+					}
+					if(last_measurement.sensor_id == 2) {
+						// Push it to the array for storage
+						sensor2_data.push({
+							x: xtime,
+							y: xtemp
+						});
+						sensor2_chart.render();
+					}
+					if(last_measurement.sensor_id == 3) {
+						// Push it to the array for storage
+						sensor3_data.push({
+							x: xtime,
+							y: xtemp
+						});
+						sensor3_chart.render();
+					}
+					if(last_measurement.sensor_id == 4) {
+						// Push it to the array for storage
+						sensor4_data.push({
+							x: xtime,
+							y: xtemp
+						});
+						sensor4_chart.render();
+					}
+				}
+			});
 		};
 
 		// This function needs to update the current temp variable every interval
@@ -286,6 +327,7 @@ $(document).ready(function () {
 		// update displays after specified time. 
 		setInterval(function(){updateChart(1);}, updateInterval);
 		setInterval(function(){updateCurrentTemp();}, updateInterval);
+		setInterval(function(){updateSensorCharts();}, updateInterval);
 
 	};
 });

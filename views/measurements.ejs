@@ -14,36 +14,8 @@
         <div class="jumbotron">
             <div class="row">
                 <div class="col-md-6">
-                    <h1><%= title %></h1>
-                    <h2>Historical Measurements</h2>
-                    <h3>Average Temperature</h3>
+                    <h1>Average Temperature</h1>
                     <p id="average"></p>
-                </div>
-                <div class="col-md-6">
-                    <table class="table table-striped">
-                        <thead>
-                            <th>Sensor</th>
-                            <th>Reading</th>
-                            <th>Date</th>
-                        </thead>
-                        <tbody>
-                            <% if(measurements) { %>
-                                <% measurements.forEach(function(measurement) { %>
-                                    <tr>
-                                        <td><%= measurement.sensor_id %></td>
-                                        <td><%= measurement.reading %> &deg;C</td>
-                                        <td><%= measurement.date_received %></td>
-                                    </tr>
-                                <% }); %>
-                            <% } else { %>
-                                <tr>
-                                    <td>No readings yet!</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            <% }; %>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
