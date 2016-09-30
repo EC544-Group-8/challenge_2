@@ -33,6 +33,7 @@ $(document).ready(function () {
 
 		//=====================================================
 		// Test data
+		/*
 		for(i=0; i <100; i++){
 			var xVal = 2*i*i + 2*i + 4;
 			var yVal =	4*i - 3;
@@ -58,6 +59,7 @@ $(document).ready(function () {
 				y: 	yVal
 			});
 		}
+		*/
 		//=====================================================
 
 		var chart = new CanvasJS.Chart("scroller",{
@@ -80,7 +82,7 @@ $(document).ready(function () {
 		// Get current historical temp and time
 		$.get('/get_hist_avg_temp', function(hist_data) {
 			// Loop through all historic data
-			for (var i = 0; i < 10; i++) { //hist_data.length
+			for (var i = 0; i < hist_data.length; i++) { 
 				// Get the temp and the time
 				var xtemp = parseFloat(hist_data[i].avg_reading);
 				// console.log('DATA: '+data.date_received);
