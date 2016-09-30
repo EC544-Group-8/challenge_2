@@ -59,10 +59,13 @@ exports.calc_avg = function(){
       
       // Print the instantaneous average
       console.log('The Average is:   ' + avg.toFixed(2) + ' degrees Celsius');
-      Average.create(avg.toFixed(2), function (err, insert_id) {
-        console.log(err);
-        console.log('inserted average as id ' + insert_id);
-      });
+      // Only store the average if it's legitimate
+      if(avg > -500.00) {
+        Average.create(avg.toFixed(2), function (err, insert_id) {
+          console.log(err);
+          console.log('inserted average as id ' + insert_id);
+        });
+      }
     }
   });
 };

@@ -33,6 +33,7 @@ exports.getAll = function(done) {
 
 // Query to get all the rows for a particular sensor - Might be better off to use for the interpolation 
 exports.getAllBySensor = function(sensor_id, done) {
+  console.log("IN model");
   db.get().query('SELECT * FROM measurements WHERE sensor_id = ?', sensor_id, function (err, rows) {
     if (err) return done(err);
     done(null, rows);
