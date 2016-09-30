@@ -16,10 +16,6 @@ var parse_time = function(time, done) {
 };
 
 $(document).ready(function () {
-	// Connect to Database
-	// Receive Individual Data (already built)
-	// Load last 20 readings at start if they exist
-
 
 	window.onload = function () {
 
@@ -29,38 +25,6 @@ $(document).ready(function () {
 		var sensor2_data = [];
 		var sensor3_data = [];
 		var sensor4_data = [];
-		
-
-		//=====================================================
-		// Test data
-		/*
-		for(i=0; i <100; i++){
-			var xVal = 2*i*i + 2*i + 4;
-			var yVal =	4*i - 3;
-			// historical_data.push({
-			// 	x:  xVal,
-			// 	y: 	yVal
-			// });
-			
-			sensor1_data.push({
-				x:  xVal,
-				y: 	yVal
-			});
-			sensor2_data.push({
-				x:  xVal,
-				y: 	yVal
-			});
-			sensor3_data.push({
-				x:  xVal,
-				y: 	yVal
-			});
-			sensor4_data.push({
-				x:  xVal,
-				y: 	yVal
-			});
-		}
-		*/
-		//=====================================================
 
 		var chart = new CanvasJS.Chart("scroller",{
 			title :{
@@ -98,6 +62,76 @@ $(document).ready(function () {
 				});
 			};
 		});
+
+		$.get('/get_hist_sensor/1', function (s1_hist_data) {
+			for (var i = 0; i < s1_hist_data.length; i++) {
+				var xtime;
+				var xtemp = parseFloat(s1_hist_data[i].reading);
+				
+				parse_time(s1_hist_data[i].date_received, function(new_time) {
+					xtime = new_time;
+				});
+
+				// Push it to the array for storage
+				sensor1_data.push({
+					x: xtime,
+					y: xtemp
+				});
+			};
+		});
+
+		$.get('/get_hist_sensor/2', function (s2_hist_data) {
+			for (var i = 0; i < s2_hist_data.length; i++) {
+				var xtime;
+				var xtemp = parseFloat(s2_hist_data[i].reading);
+				
+				parse_time(s2_hist_data[i].date_received, function(new_time) {
+					xtime = new_time;
+				});
+
+				// Push it to the array for storage
+				sensor2_data.push({
+					x: xtime,
+					y: xtemp
+				});
+			};
+		});
+
+
+		$.get('/get_hist_sensor/3', function (s3_hist_data) {
+			for (var i = 0; i < s3_hist_data.length; i++) {
+				var xtime;
+				var xtemp = parseFloat(s3_hist_data[i].reading);
+				
+				parse_time(s3_hist_data[i].date_received, function(new_time) {
+					xtime = new_time;
+				});
+
+				// Push it to the array for storage
+				sensor3_data.push({
+					x: xtime,
+					y: xtemp
+				});
+			};
+		});
+
+		$.get('/get_hist_sensor/4', function (s4_hist_data) {
+			for (var i = 0; i < s4_hist_data.length; i++) {
+				var xtime;
+				var xtemp = parseFloat(s4_hist_data[i].reading);
+				
+				parse_time(s4_hist_data[i].date_received, function(new_time) {
+					xtime = new_time;
+				});
+
+				// Push it to the array for storage
+				sensor4_data.push({
+					x: xtime,
+					y: xtemp
+				});
+			};
+		});
+
 		// Prepare the historical chart
 		var history_chart = new CanvasJS.Chart("history",{
 			title :{
@@ -112,77 +146,8 @@ $(document).ready(function () {
 			data: [{
 				type: "line",
 				dataPoints: historical_data
-				console.log('We are r/x historical data...' + historical_data[10]);
 			}]
 		});
-
-
-
-
-		$.get('/get_hist_sensor/1', function (s1_hist_data) {
-			for (var i = 0; i < s1_hist_data.length; i++) {
-				var xtemp = parseFloat(s1_hist_data[i].avg_reading);
-				parse_time(s1_hist_data[i].date_received, function(new_time) {
-					var xtime = new_time;
-				});
-
-				// Push it to the array for storage
-				sensor1_data.push({
-					x: xtemp,
-					y: xtime
-				});
-			};
-		});
-
-
-		$.get('/get_hist_sensor/2', function (s2_hist_data) {
-			for (var i = 0; i < s2_hist_data.length; i++) {
-				var xtemp = parseFloat(s2_hist_data[i].avg_reading);
-				parse_time(s2_hist_data[i].date_received, function(new_time) {
-					var xtime = new_time;
-				});
-
-				// Push it to the array for storage
-				sensor2_data.push({
-					x: xtemp,
-					y: xtime
-				});
-			};
-		});
-
-
-		$.get('/get_hist_sensor/3', function (s3_hist_data) {
-			for (var i = 0; i < s3_hist_data.length; i++) {
-				var xtemp = parseFloat(s3_hist_data[i].avg_reading);
-				parse_time(s1_hist_data[i].date_received, function(new_time) {
-					var xtime = new_time;
-				});
-
-				// Push it to the array for storage
-				sensor3_data.push({
-					x: xtemp,
-					y: xtime
-				});
-			};
-		});
-
-
-
-		$.get('/get_hist_sensor/4', function (s4_hist_data) {
-			for (var i = 0; i < s4_hist_data.length; i++) {
-				var xtemp = parseFloat(s4_hist_data[i].avg_reading);
-				parse_time(s4_hist_data[i].date_received, function(new_time) {
-					var xtime = new_time;
-				});
-
-				// Push it to the array for storage
-				sensor4_data.push({
-					x: xtemp,
-					y: xtime
-				});
-			};
-		});
-
 
 
 		var sensor1_chart = new CanvasJS.Chart("sensor1",{
@@ -293,6 +258,10 @@ $(document).ready(function () {
 			// Update Chart
 			chart.render();
 			history_chart.render();
+			sensor1_chart.render();
+			sensor2_chart.render();
+			sensor3_chart.render();
+			sensor4_chart.render();
 
 		};
 

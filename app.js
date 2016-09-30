@@ -50,7 +50,7 @@ app.get('/get_current_avg_temp', function(req, res){
 
 // For retreiving the historic average temp
 app.get('/get_hist_avg_temp', function(req, res){
-  Average.getAll(function(err, hist_temps){
+  Average.getAll(function (err, hist_temps){
     if(hist_temps){
       res.send(hist_temps);
     }
@@ -59,14 +59,35 @@ app.get('/get_hist_avg_temp', function(req, res){
 
 
 // For retreiving the historic average data for each sensor 
-app.get('/get_hist_sensor/:sensor_id', function(req,res) {
-  Measurement.getAllBySensor(sensor_id, function (err, hist_data) {
+app.get('/get_hist_sensor/1', function(req,res) {
+  Measurement.getAllBySensor(1, function (err, hist_data) {
     if(hist_data) {
       res.send(hist_data);
     }
   });
 });
 
+app.get('/get_hist_sensor/2', function(req,res) {
+  Measurement.getAllBySensor(2, function (err, hist_data) {
+    if(hist_data) {
+      res.send(hist_data);
+    }
+  });
+});
+app.get('/get_hist_sensor/3', function(req,res) {
+  Measurement.getAllBySensor(3, function (err, hist_data) {
+    if(hist_data) {
+      res.send(hist_data);
+    }
+  });
+});
+app.get('/get_hist_sensor/4', function(req,res) {
+  Measurement.getAllBySensor(4, function (err, hist_data) {
+    if(hist_data) {
+      res.send(hist_data);
+    }
+  });
+});
 
 
 // --------- END AJAX POST REQUESTS --------- //
