@@ -80,7 +80,7 @@ $(document).ready(function () {
 		// Get current historical temp and time
 		$.get('/get_hist_avg_temp', function(hist_data) {
 			// Loop through all historic data
-			for (var i = 0; i < hist_data.length; i++) {
+			for (var i = 0; i < 10; i++) { //hist_data.length
 				// Get the temp and the time
 				var xtemp = parseFloat(hist_data[i].avg_reading);
 				// console.log('DATA: '+data.date_received);
@@ -308,10 +308,10 @@ $(document).ready(function () {
 
 		// Load Historical Data based on user choice (or default)
 		history_chart.render();
-		// sensor1_chart.render();
-		// sensor2_chart.render();
-		// sensor3_chart.render();
-		// sensor4_chart.render();
+		sensor1_chart.render();
+		sensor2_chart.render();
+		sensor3_chart.render();
+		sensor4_chart.render();
 
 		// update displays after specified time. 
 		setInterval(function(){updateChart(1);}, updateInterval);
