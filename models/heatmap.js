@@ -24,7 +24,7 @@ exports.updateHeatMap = function() {
   for(var i = 1; i < 5; i++) {
     Measurement.getMostRecentBySensor(i, function (err,measurement) {
       if(measurement){
-        T[i-1] = (parseFloat(measurement.reading));
+        T[i-1] = parseFloat(measurement[0].reading);
         console.log('r/x interpolant');
         console.log(T[0]);
       }
