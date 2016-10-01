@@ -17,7 +17,7 @@ plotly.plot(data, layout, function (err, msg) {
 
 
 
-var updateHeatMap = function() {
+exports.updateHeatMap = function() {
   var plotly = require('plotly')("delollis", "cj716hsz4v");
   var Nrows=10;
   var Ncols=10;
