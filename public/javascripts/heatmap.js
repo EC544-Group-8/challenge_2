@@ -8,13 +8,13 @@ plotly.plot(data, layout, function (err, msg) {
 	console.log(msg);
 });*/
 
-var updateInterval = 1000;
+var updateInterval = 2000;
 var Nrows=10;
 var Ncols=10;
-T00=22;//bottom left
-T01=25;//bottom right
-T11=20;//top right
-T10=22; //top left
+// T00=22;//bottom left
+// T01=25;//bottom right
+// T11=20;//top right
+// T10=22; //top left
 
 
 
@@ -25,6 +25,7 @@ var updateHeatMap = function() {
         var xtemp = parseFloat(data.reading);
         // Push it to the array for storage
         tempVec.push(xtemp);
+        console.log('Grabbing the heat map data');
       });
   }
 
