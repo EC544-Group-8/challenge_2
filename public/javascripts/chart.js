@@ -235,32 +235,32 @@ $(document).ready(function () {
 			});
 
 			//if(new_time > prev_time){
-				// Update the charts if there is a new average reading
-				if (temp > -500){
-					// Add the new reading to the realtime chart
-					realtime_data.push({
-						x: time,
-						y: temp
-					});
-					// Add the new reading to the historical chart
-					historical_data.push({
-						x: time,
-						y: temp
-					});
-				}
+			// Update the charts if there is a new average reading
+			if (temp > -500){
+				// Add the new reading to the realtime chart
+				realtime_data.push({
+					x: time,
+					y: temp
+				});
+				// Add the new reading to the historical chart
+				historical_data.push({
+					x: time,
+					y: temp
+				});
+			}
 
-				// Scroll Realtime Chart if necessary
-				if (realtime_data.length > dataLength) {
-					// pop the oldest reading
-					realtime_data.shift();
-				}
-				
-				// Update Chart
-				chart.render();
-				history_chart.render();
+			// Scroll Realtime Chart if necessary
+			if (realtime_data.length > dataLength) {
+				// pop the oldest reading
+				realtime_data.shift();
+			}
+			
+			// Update Chart
+			chart.render();
+			history_chart.render();
 
-				// Store this time so that we only update if the above condition is met
-				prev_time = new_time;
+			// Store this time so that we only update if the above condition is met
+			prev_time = new_time;
 			//}
 
 		};
