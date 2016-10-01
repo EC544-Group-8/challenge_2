@@ -17,6 +17,16 @@ plotly.plot(data, layout, function (err, msg) {
 var Measurement = require('./measurement.js');
 var plotly = require('plotly')("delollis", "cj716hsz4v");
 
+var Create2DArray = function(rows) {
+  var arr = [];
+
+  for (var i=0;i<rows;i++) {
+     arr[i] = [];
+  }
+
+  return arr;
+}
+
 exports.updateHeatMap = function() {
   var Nrows=10;
   var Ncols=10;
@@ -31,51 +41,40 @@ exports.updateHeatMap = function() {
         console.log(T[1]);
         console.log(T[2]);
         console.log(T[3]);
+        if(T.length == 4) {
+          var myarr=Create2DArray(Ncols);
+
+          for (i = 0; i < (Ncols); ++i) {
+              myarr[i] = Create2DArray(Nrows);
+              for (j = 0; j < (Nrows); ++j) {
+                x=(1/(Ncols-1))*i;
+                y=(1/(Nrows-1))*j;
+                myarr[i][j]=T[0]*(1-x)*(1-y)+T[3]*(x)*(1-y)+T[1]*(1-x)*(y)+T[2]*(x)*(y);
+              }
+          }
+          console.log(myarr);
+
+
+          var data = [
+            {
+              z: myarr,
+              type: 'heatmap',
+            zsmooth: 'best'
+            }
+          ];
+          var layout = {fileopt : "overwrite", 
+            filename : "heatmap-node"
+
+          };
+
+          // plotly.plot(data, layout, function (err, msg) {
+          //  if (err) return console.log(err);
+          //  console.log(msg);
+          //});
+        }
       }
     });
   }
-
-//T = [1,0,0,1];
-
-  var Create2DArray = function(rows) {
-    var arr = [];
-
-    for (var i=0;i<rows;i++) {
-       arr[i] = [];
-    }
-
-    return arr;
-  }
-
-  var myarr=Create2DArray(Ncols);
-
-  for (i = 0; i < (Ncols); ++i) {
-      myarr[i] = Create2DArray(Nrows);
-      for (j = 0; j < (Nrows); ++j) {
-      	x=(1/(Ncols-1))*i;
-      	y=(1/(Nrows-1))*j;
-      	myarr[i][j]=T[0]*(1-x)*(1-y)+T[3]*(x)*(1-y)+T[1]*(1-x)*(y)+T[2]*(x)*(y);
-      }
-  }
-  console.log(myarr);
-
-
-  var data = [
-    {
-      z: myarr,
-      type: 'heatmap',
-  	zsmooth: 'best'
-    }
-  ];
-  var layout = {fileopt : "overwrite", 
-  	filename : "heatmap-node"
-
-  };
-
-  // plotly.plot(data, layout, function (err, msg) {
-  // 	if (err) return console.log(err);
-  // 	console.log(msg);
-  //});
 };
 
 
