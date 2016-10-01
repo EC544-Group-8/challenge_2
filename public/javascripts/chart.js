@@ -234,7 +234,7 @@ $(document).ready(function () {
 				});
 			});
 
-			if(new_time > prev_time){
+			//if(new_time > prev_time){
 				// Update the charts if there is a new average reading
 				if (temp > -500){
 					// Add the new reading to the realtime chart
@@ -261,7 +261,7 @@ $(document).ready(function () {
 
 				// Store this time so that we only update if the above condition is met
 				prev_time = new_time;
-			}
+			//}
 
 		};
 
