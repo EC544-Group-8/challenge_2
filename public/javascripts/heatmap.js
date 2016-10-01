@@ -23,7 +23,7 @@ $(document).ready(function () {
     var updateHeatMap = function() {
       var T = [];
       for(var i = 0; i < 4; i++) {
-        $.get('/get_heat_map', function (data) {
+        $.get('/get_heat_map/:i', function (data) {
             var xtemp = parseFloat(data.reading);
             // Push it to the array for storage
             tempVec.push(xtemp);
@@ -71,7 +71,7 @@ $(document).ready(function () {
       	console.log(msg);
       });
     };
-    
+
     setInterval(function(){updateHeatMap();}, updateInterval);
   };
 });
