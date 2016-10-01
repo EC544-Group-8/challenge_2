@@ -76,7 +76,7 @@ exports.getMostRecent = function(done) {
 
 
 // Query to obtain the most recent reading for a particular sensor
-exports.getMostRecentBySensor = function(done) {
+exports.getMostRecentBySensor = function(sensor_id, done) {
   var d = new Date();
   now = [d.getFullYear(),
            '0'+(d.getMonth()+1),
@@ -86,7 +86,7 @@ exports.getMostRecentBySensor = function(done) {
             d.getMinutes(),
             d.getSeconds()].join(':');
   
-  db.get().query('SELECT * FROM measurements WHERE sensor_id = ? ORDER BY date_received DESC LIMIT 1', function (err, rows) {
+  db.get().query('SELECT * FROM measurements WHERE sensor_id = ? ORDER BY date_received DESC LIMIT 1', sensor_id, function (err, rows) {
     if(err) return done(err);
     done(null, rows);
   });

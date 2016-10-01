@@ -97,8 +97,9 @@ app.get('/get_most_recent_measurement', function(req,res) {
   });
 });
 
-app.get('/get_heat_map', function(req,res) {
-  Measurement.getMostRecentBySensor(function (err, last_reading) {
+// Keeps the heat map up to date with new data from each sensor
+app.get('/get_heat_map/:sensor_id', function(req,res) {
+  Measurement.getMostRecentBySensor(sensor_id, function (err, last_reading) {
     if(last_reading && last_reading[0]){
       res.send(last_reading[0]);
     }

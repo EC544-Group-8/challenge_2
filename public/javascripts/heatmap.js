@@ -27,47 +27,49 @@ var updateHeatMap = function() {
         tempVec.push(xtemp);
       });
   }
-};
 
-function Create2DArray(rows) {
-  var arr = [];
 
-  for (var i=0;i<rows;i++) {
-     arr[i] = [];
-  }
+  function Create2DArray(rows) {
+    var arr = [];
 
-  return arr;
-}
-
-var myarr=Create2DArray(Ncols);
-
-for (i = 0; i < (Ncols); ++i) {
-    myarr[i] = Create2DArray(Nrows);
-    for (j = 0; j < (Nrows); ++j) {
-    	x=(1/(Ncols-1))*i;
-    	y=(1/(Nrows-1))*j;
-    	myarr[i][j]=T[0]*(1-x)*(1-y)+T[3]*(x)*(1-y)+T[1]*(1-x)*(y)+T[2]*(x)*(y);
+    for (var i=0;i<rows;i++) {
+       arr[i] = [];
     }
-}
-console.log(myarr);
 
-
-var data = [
-  {
-    z: myarr,
-    type: 'heatmap',
-	zsmooth: 'best'
+    return arr;
   }
-];
-var layout = {fileopt : "overwrite", 
-	filename : "heatmap-node"
 
+  var myarr=Create2DArray(Ncols);
+
+  for (i = 0; i < (Ncols); ++i) {
+      myarr[i] = Create2DArray(Nrows);
+      for (j = 0; j < (Nrows); ++j) {
+      	x=(1/(Ncols-1))*i;
+      	y=(1/(Nrows-1))*j;
+      	myarr[i][j]=T[0]*(1-x)*(1-y)+T[3]*(x)*(1-y)+T[1]*(1-x)*(y)+T[2]*(x)*(y);
+      }
+  }
+  console.log(myarr);
+
+
+  var data = [
+    {
+      z: myarr,
+      type: 'heatmap',
+  	zsmooth: 'best'
+    }
+  ];
+  var layout = {fileopt : "overwrite", 
+  	filename : "heatmap-node"
+
+  };
+
+  plotly.plot(data, layout, function (err, msg) {
+  	if (err) return console.log(err);
+  	console.log(msg);
+  });
 };
 
-plotly.plot(data, layout, function (err, msg) {
-	if (err) return console.log(err);
-	console.log(msg);
-});
 
 setInterval(function(){updateHeatMap();}, updateInterval);
 
