@@ -113,6 +113,23 @@ $(document).ready(function () {
 					y: xtemp
 				});
 			}
+
+			var sensor2_chart = new CanvasJS.Chart("sensor2",{
+				title :{
+					text: "Living Room Temperature"
+				},			
+				axisX:{
+					title:"Time (s)"
+				},
+				axisY:{
+					title:"Temperature (°C)"
+				},
+				data: [{
+					type: "line",
+					dataPoints: sensor2_data 
+				}]
+			});
+			sensor2_chart.render();
 		});
 
 
@@ -131,6 +148,22 @@ $(document).ready(function () {
 					y: xtemp
 				});
 			}
+			var sensor3_chart = new CanvasJS.Chart("sensor3",{
+				title :{
+					text: "Bedroom Temperature"
+				},			
+				axisX:{
+					title:"Time (s)"
+				},
+				axisY:{
+					title:"Temperature (°C)"
+				},
+				data: [{
+					type: "line",
+					dataPoints: sensor3_data 
+				}]
+			});
+			sensor3_chart.render();
 		});
 
 		$.get('/get_hist_sensor/4', function (s4_hist_data) {
@@ -148,6 +181,22 @@ $(document).ready(function () {
 					y: xtemp
 				});
 			}
+			var sensor4_chart = new CanvasJS.Chart("sensor4",{
+				title :{
+					text: "Office Temperature"
+				},			
+				axisX:{
+					title:"Time (s)"
+				},
+				axisY:{
+					title:"Temperature (°C)"
+				},
+				data: [{
+					type: "line",
+					dataPoints: sensor4_data 
+				}]
+			});
+			sensor4_chart.render();
 		});
 
 		// Prepare the historical chart
@@ -167,56 +216,6 @@ $(document).ready(function () {
 			}]
 		});
 
-
-
-
-		var sensor2_chart = new CanvasJS.Chart("sensor2",{
-			title :{
-				text: "Living Room Temperature"
-			},			
-			axisX:{
-				title:"Time (s)"
-			},
-			axisY:{
-				title:"Temperature (°C)"
-			},
-			data: [{
-				type: "line",
-				dataPoints: sensor2_data 
-			}]
-		});
-		
-		var sensor3_chart = new CanvasJS.Chart("sensor3",{
-			title :{
-				text: "Bedroom Temperature"
-			},			
-			axisX:{
-				title:"Time (s)"
-			},
-			axisY:{
-				title:"Temperature (°C)"
-			},
-			data: [{
-				type: "line",
-				dataPoints: sensor3_data 
-			}]
-		});
-
-		var sensor4_chart = new CanvasJS.Chart("sensor4",{
-			title :{
-				text: "Office Temperature"
-			},			
-			axisX:{
-				title:"Time (s)"
-			},
-			axisY:{
-				title:"Temperature (°C)"
-			},
-			data: [{
-				type: "line",
-				dataPoints: sensor4_data 
-			}]
-		});
 
 		var time = new Date(2012,01,1);
 		var temp = -500;	
@@ -323,10 +322,10 @@ $(document).ready(function () {
 
 		// Load Historical Data based on user choice (or default)
 		history_chart.render();
-		sensor1_chart.render();
-		sensor2_chart.render();
-		sensor3_chart.render();
-		sensor4_chart.render();
+		// sensor1_chart.render();
+		// sensor2_chart.render();
+		// sensor3_chart.render();
+		// sensor4_chart.render();
 
 		// update displays after specified time. 
 		setInterval(function(){updateChart(1);}, updateInterval);
