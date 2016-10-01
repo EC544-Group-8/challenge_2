@@ -78,6 +78,23 @@ $(document).ready(function () {
 					y: xtemp
 				});
 			}
+
+			var sensor1_chart = new CanvasJS.Chart("sensor1",{
+				title :{
+					text: "Kitchen Temperature"
+				},			
+				axisX:{
+					title:"Time (s)"
+				},
+				axisY:{
+					title:"Temperature (°C)"
+				},
+				data: [{
+					type: "line",
+					dataPoints: sensor1_data 
+				}]
+			});
+			sensor1_chart.render();
 		});
 
 
@@ -151,21 +168,7 @@ $(document).ready(function () {
 		});
 
 
-		var sensor1_chart = new CanvasJS.Chart("sensor1",{
-			title :{
-				text: "Kitchen Temperature"
-			},			
-			axisX:{
-				title:"Time (s)"
-			},
-			axisY:{
-				title:"Temperature (°C)"
-			},
-			data: [{
-				type: "line",
-				dataPoints: sensor1_data 
-			}]
-		});
+
 
 		var sensor2_chart = new CanvasJS.Chart("sensor2",{
 			title :{
