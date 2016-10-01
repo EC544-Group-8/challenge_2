@@ -8,13 +8,26 @@ plotly.plot(data, layout, function (err, msg) {
 	console.log(msg);
 });*/
 
-
+var updateInterval = 1000;
 var Nrows=10;
 var Ncols=10;
 T00=22;//bottom left
 T01=25;//bottom right
 T11=20;//top right
 T10=22; //top left
+
+
+
+var updateHeatMap = function() {
+  var T = [];
+  for(var i = 0; i < 4; i++) {
+    $.get('/get_heat_map', function (data) {
+        var xtemp = parseFloat(data.reading);
+        // Push it to the array for storage
+        tempVec.push(xtemp);
+      });
+  }
+};
 
 function Create2DArray(rows) {
   var arr = [];
@@ -33,12 +46,10 @@ for (i = 0; i < (Ncols); ++i) {
     for (j = 0; j < (Nrows); ++j) {
     	x=(1/(Ncols-1))*i;
     	y=(1/(Nrows-1))*j;
-    	myarr[i][j]=T00*(1-x)*(1-y)+T10*(x)*(1-y)+T01*(1-x)*(y)+T11*(x)*(y);
+    	myarr[i][j]=T[0]*(1-x)*(1-y)+T[3]*(x)*(1-y)+T[1]*(1-x)*(y)+T[2]*(x)*(y);
     }
 }
 console.log(myarr);
-
-
 
 
 var data = [
@@ -58,6 +69,6 @@ plotly.plot(data, layout, function (err, msg) {
 	console.log(msg);
 });
 
-
+setInterval(function(){updateHeatMap();}, updateInterval);
 
 

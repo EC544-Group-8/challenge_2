@@ -60,7 +60,7 @@ $(document).ready(function () {
 					x:  xtime,
 					y:  xtemp
 				});
-			};
+			}
 		});
 
 		$.get('/get_hist_sensor/1', function (s1_hist_data) {
@@ -77,7 +77,7 @@ $(document).ready(function () {
 					x: xtime,
 					y: xtemp
 				});
-			};
+			}
 		});
 
 		$.get('/get_hist_sensor/2', function (s2_hist_data) {
@@ -94,7 +94,7 @@ $(document).ready(function () {
 					x: xtime,
 					y: xtemp
 				});
-			};
+			}
 		});
 
 
@@ -112,7 +112,7 @@ $(document).ready(function () {
 					x: xtime,
 					y: xtemp
 				});
-			};
+			}
 		});
 
 		$.get('/get_hist_sensor/4', function (s4_hist_data) {
@@ -129,7 +129,7 @@ $(document).ready(function () {
 					x: xtime,
 					y: xtemp
 				});
-			};
+			}
 		});
 
 		// Prepare the historical chart

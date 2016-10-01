@@ -80,6 +80,7 @@ app.get('/get_hist_sensor/3', function(req,res) {
     }
   });
 });
+
 app.get('/get_hist_sensor/4', function(req,res) {
   Measurement.getAllBySensor(4, function (err, hist_data) {
     if(hist_data) {
@@ -90,6 +91,14 @@ app.get('/get_hist_sensor/4', function(req,res) {
 
 app.get('/get_most_recent_measurement', function(req,res) {
   Measurement.getMostRecent(function (err, last_reading) {
+    if(last_reading && last_reading[0]){
+      res.send(last_reading[0]);
+    }
+  });
+});
+
+app.get('/get_heat_map', function(req,res) {
+  Measurement.getMostRecentBySensor(function (err, last_reading) {
     if(last_reading && last_reading[0]){
       res.send(last_reading[0]);
     }
