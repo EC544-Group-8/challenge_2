@@ -72,7 +72,7 @@ exports.updateHeatMap = function() {
   // plotly.plot(data, layout, function (err, msg) {
   // 	if (err) return console.log(err);
   // 	console.log(msg);
-  });
+  //});
 };
 
 
