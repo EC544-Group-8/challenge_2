@@ -200,6 +200,7 @@ $(document).ready(function () {
 		});
 
 		// Prepare the historical chart
+		// This should probably be nested just like th other sensor nodes
 		var history_chart = new CanvasJS.Chart("history",{
 			title :{
 				text: "Historical Average Temperature"
@@ -223,6 +224,7 @@ $(document).ready(function () {
 		var dataLength = 300; // number of dataPoints visible at any point
 
 		var updateChart = function () {
+			var prev_time = 0;
 			// Get current avg temp and time
 			$.get('/get_current_avg_temp', function(data) {
 				temp = parseFloat(data.avg_reading);
@@ -232,32 +234,38 @@ $(document).ready(function () {
 				});
 			});
 
-			// Update the charts if there is a new average reading
-			if (temp > -500){
-				// Add the new reading to the realtime chart
-				realtime_data.push({
-					x: time,
-					y: temp
-				});
-				// Add the new reading to the historical chart
-				historical_data.push({
-					x: time,
-					y: temp
-				});
-			}
+			if(new_time > prev_time){
+				// Update the charts if there is a new average reading
+				if (temp > -500){
+					// Add the new reading to the realtime chart
+					realtime_data.push({
+						x: time,
+						y: temp
+					});
+					// Add the new reading to the historical chart
+					historical_data.push({
+						x: time,
+						y: temp
+					});
+				}
 
-			// Scroll Realtime Chart if necessary
-			if (realtime_data.length > dataLength) {
-				// pop the oldest reading
-				realtime_data.shift();
+				// Scroll Realtime Chart if necessary
+				if (realtime_data.length > dataLength) {
+					// pop the oldest reading
+					realtime_data.shift();
+				}
+				
+				// Update Chart
+				chart.render();
+				history_chart.render();
+
+				// Store this time so that we only update if the above condition is met
+				prev_time = new_time;
 			}
-			
-			// Update Chart
-			chart.render();
-			history_chart.render();
 
 		};
 
+		// should this be inside the function ?!?!?!?
 		var last_measurement_updated_time = new Date();
 		// This function needs to update the current temp variable every interval
 		var updateSensorCharts = function() {
@@ -330,7 +338,7 @@ $(document).ready(function () {
 		// update displays after specified time. 
 		setInterval(function(){updateChart(1);}, updateInterval);
 		setInterval(function(){updateCurrentTemp();}, updateInterval);
-		//setInterval(function(){updateSensorCharts();}, updateInterval);
+		setInterval(function(){updateSensorCharts();}, updateInterval);
 
 	};
 });

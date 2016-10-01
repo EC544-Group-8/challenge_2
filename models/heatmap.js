@@ -66,7 +66,7 @@ exports.updateHeatMap = function() {
             filename : "heatmap-node"
 
           };
-
+          // We can only plot 30 times in the hour...
           // plotly.plot(data, layout, function (err, msg) {
           //  if (err) return console.log(err);
           //  console.log(msg);
