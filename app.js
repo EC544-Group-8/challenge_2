@@ -140,6 +140,7 @@ sp.on("open", function () {
 });
 
 // building the heat map molding to publich to plotly for the div in view
+var plotly = require('plotly')("delollis", "cj716hsz4v");
 var heatMapController = require('./models/heatmap.js');
 setInterval(function(){
   heatMapController.updateHeatMap();
