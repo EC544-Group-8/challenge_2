@@ -139,6 +139,13 @@ sp.on("open", function () {
   });
 });
 
+// building the heat map molding to publich to plotly for the div in view
+var heatMapController = require('./models/heatmap.js');
+setInterval(function(){
+  heatMapController.updateHeatMap();
+},2000);
+//=======================================================================
+
 // Every 3 seconds ping one of the arduinos
 setInterval(function(){
   // send command and receive data from arduinos
