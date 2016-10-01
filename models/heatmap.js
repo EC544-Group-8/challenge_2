@@ -21,12 +21,12 @@ exports.updateHeatMap = function() {
   var Nrows=10;
   var Ncols=10;
   var T = [];
-  for(var i = 0; i < 4; i++) {
-    Measurement.getMostRecentBySensor(i,function (err,measurement) {
+  for(var i = 1; i < 5; i++) {
+    Measurement.getMostRecentBySensor(i, function (err,measurement) {
       if(measurement){
         T.push(parseFloat(measurement.reading));
         console.log('r/x interpolant');
-        console.log(T[i]);
+        console.log(T[0]);
       }
     });
   }
