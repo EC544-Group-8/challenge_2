@@ -26,7 +26,7 @@ exports.updateHeatMap = function() {
       if(measurement){
         T.push(parseFloat(measurement.reading));
         console.log('r/x interpolant');
-        console.log(measurement[0].reading);
+        console.log(T[i]);
       }
     });
   }
