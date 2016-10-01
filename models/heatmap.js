@@ -22,6 +22,8 @@ exports.updateHeatMap = function() {
   var Ncols=10;
   var T = [];
   for(var i = 1; i < 5; i++) {
+    console.log('****************');
+    console.log(i);
     Measurement.getMostRecentBySensor(i, function (err,measurement) {
       if(measurement){
         T.push(parseFloat(measurement.reading));
@@ -67,9 +69,9 @@ exports.updateHeatMap = function() {
 
   };
 
-  plotly.plot(data, layout, function (err, msg) {
-  	if (err) return console.log(err);
-  	console.log(msg);
+  // plotly.plot(data, layout, function (err, msg) {
+  // 	if (err) return console.log(err);
+  // 	console.log(msg);
   });
 };
 
