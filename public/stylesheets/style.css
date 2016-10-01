@@ -71,6 +71,8 @@ a {
 
 #heatMapDiv{
 	height: auto;
-	width: 100%;
-	float: right;
+	width: 50%;
+	position: absolute;
+	top:0%;
+	right: 50%;
 }
