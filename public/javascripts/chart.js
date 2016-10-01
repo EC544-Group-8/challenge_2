@@ -338,7 +338,7 @@ $(document).ready(function () {
 		// update displays after specified time. 
 		setInterval(function(){updateChart(1);}, updateInterval);
 		setInterval(function(){updateCurrentTemp();}, updateInterval);
-		setInterval(function(){updateSensorCharts();}, updateInterval);
+		//setInterval(function(){updateSensorCharts();}, updateInterval);
 
 	};
 });
