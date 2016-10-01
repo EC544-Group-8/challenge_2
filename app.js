@@ -102,6 +102,7 @@ app.get('/get_heat_map/:sensor_id', function(req,res) {
   Measurement.getMostRecentBySensor(sensor_id, function (err, last_reading) {
     if(last_reading && last_reading[0]){
       res.send(last_reading[0]);
+      console.log('Grabbing the heat map data');
     }
   });
 });
