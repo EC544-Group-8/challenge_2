@@ -63,7 +63,7 @@ $(document).ready(function () {
 			}
 		});
 
-		$.get('/get_hist_sensor/2', function (s1_hist_data) {
+		$.get('/get_hist_sensor/1', function (s1_hist_data) {
 			for (var i = 0; i < s1_hist_data.length; i++) {
 				var xtime;
 				var xtemp = parseFloat(s1_hist_data[i].reading);
@@ -80,7 +80,8 @@ $(document).ready(function () {
 			}
 		});
 
-		$.get('/get_hist_sensor/1', function (s2_hist_data) {
+
+		$.get('/get_hist_sensor/2', function (s2_hist_data) {
 			for (var i = 0; i < s2_hist_data.length; i++) {
 				var xtime;
 				var xtemp = parseFloat(s2_hist_data[i].reading);
@@ -164,6 +165,7 @@ $(document).ready(function () {
 				type: "line",
 				dataPoints: sensor1_data 
 			}]
+			sensor1_chart.render();
 		});
 
 		var sensor2_chart = new CanvasJS.Chart("sensor2",{
