@@ -15,23 +15,24 @@ plotly.plot(data, layout, function (err, msg) {
 // T11=20;//top right
 // T10=22; //top left
 var Measurement = require('./measurement.js');
-
+var plotly = require('plotly')("delollis", "cj716hsz4v");
 
 exports.updateHeatMap = function() {
-  var plotly = require('plotly')("delollis", "cj716hsz4v");
   var Nrows=10;
   var Ncols=10;
   var T = [];
   for(var i = 0; i < 4; i++) {
     Measurement.getMostRecentBySensor(i,function (err,measurement) {
-      if(measurement && measurement[0]){
-        T.push(measurement[0].reading);
+      if(measurement){
+        T.push(parseFloat(measurement.reading));
+        console.log('r/x interpolant');
+        console.log(measurement.reading);
       }
     });
   }
 
 
-  function Create2DArray(rows) {
+  var Create2DArray = function(rows) {
     var arr = [];
 
     for (var i=0;i<rows;i++) {

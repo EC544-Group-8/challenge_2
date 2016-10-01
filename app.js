@@ -140,7 +140,7 @@ sp.on("open", function () {
   });
 });
 
-// building the heat map molding to publich to plotly for the div in view
+// building the heat map 
 var plotly = require('plotly')("delollis", "cj716hsz4v");
 var heatMapController = require('./models/heatmap.js');
 setInterval(function(){
