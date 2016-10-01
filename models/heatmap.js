@@ -24,13 +24,14 @@ exports.updateHeatMap = function() {
   for(var i = 1; i < 5; i++) {
     Measurement.getMostRecentBySensor(i, function (err,measurement) {
       if(measurement){
-        T[i-1] = parseFloat(measurement[0].reading);
+        T.push( parseFloat(measurement[0].reading));
         console.log('r/x interpolant');
         console.log(T[0]);
       }
     });
   }
 
+T = [1,0,0,1];
 
   var Create2DArray = function(rows) {
     var arr = [];
