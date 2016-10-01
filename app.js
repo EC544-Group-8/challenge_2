@@ -98,6 +98,7 @@ app.get('/get_most_recent_measurement', function(req,res) {
 });
 
 // Keeps the heat map up to date with new data from each sensor
+// Most likely can be deleted
 app.get('/get_heat_map/1', function(req,res) {
   console.log('Grabbing the heat map data');
   Measurement.getMostRecentBySensor(1, function (err, last_reading) {

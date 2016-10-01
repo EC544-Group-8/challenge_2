@@ -14,7 +14,7 @@ plotly.plot(data, layout, function (err, msg) {
 // T01=25;//bottom right
 // T11=20;//top right
 // T10=22; //top left
-
+var Measurement = require('./measurement.js');
 
 
 exports.updateHeatMap = function() {
@@ -23,11 +23,11 @@ exports.updateHeatMap = function() {
   var Ncols=10;
   var T = [];
   for(var i = 0; i < 4; i++) {
-    $.get('/get_heat_map/1', function (data) {
-        var xtemp = parseFloat(data.reading);
-        // Push it to the array for storage
-        tempVec.push(xtemp);
-      });
+    Measurement.getMostRecentBySensor(i,function (err,measurement) {
+      if(measurement && measurement[0]){
+        T.push(measurement[0].reading);
+      }
+    });
   }
 
 
