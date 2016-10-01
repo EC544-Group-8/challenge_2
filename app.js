@@ -145,7 +145,7 @@ var plotly = require('plotly')("delollis", "cj716hsz4v");
 var heatMapController = require('./models/heatmap.js');
 setInterval(function(){
   heatMapController.updateHeatMap();
-},2000);
+},120000);
 //=======================================================================
 
 // Every 3 seconds ping one of the arduinos

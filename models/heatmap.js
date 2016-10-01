@@ -10,10 +10,10 @@ plotly.plot(data, layout, function (err, msg) {
 
 
 
-// T00=22;//bottom left
-// T01=25;//bottom right
-// T11=20;//top right
-// T10=22; //top left
+// T00=22;//bottom left (Sensor_1)
+// T01=25;//bottom right (Sensor_2)
+// T11=20;//top right (Sensor_3)
+// T10=22; //top left (Sensor_4)
 var Measurement = require('./measurement.js');
 var plotly = require('plotly')("delollis", "cj716hsz4v");
 
@@ -67,9 +67,9 @@ exports.updateHeatMap = function() {
 
           };
 
-          plotly.plot(data, layout, function (err, msg) {
-           if (err) return console.log(err);
-           console.log(msg);
+          // plotly.plot(data, layout, function (err, msg) {
+          //  if (err) return console.log(err);
+          //  console.log(msg);
           });
         }
       }
