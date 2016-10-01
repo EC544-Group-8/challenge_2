@@ -1,4 +1,4 @@
-var plotly = require('plotly')("delollis", "cj716hsz4v");
+
 
 /*var data = [{x:[0,1,2], y:[3,2,1], type: 'bar'}];
 var layout = {fileopt : "overwrite", filename : "simple-node-example"};
@@ -9,8 +9,7 @@ plotly.plot(data, layout, function (err, msg) {
 });*/
 
 
-var Nrows=10;
-var Ncols=10;
+
 // T00=22;//bottom left
 // T01=25;//bottom right
 // T11=20;//top right
@@ -19,6 +18,9 @@ var Ncols=10;
 
 
 var updateHeatMap = function() {
+  var plotly = require('plotly')("delollis", "cj716hsz4v");
+  var Nrows=10;
+  var Ncols=10;
   var T = [];
   for(var i = 0; i < 4; i++) {
     $.get('/get_heat_map/1', function (data) {
