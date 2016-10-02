@@ -51,7 +51,7 @@ exports.getAllMostRecentFromLastTenMinutes = function(done) {
             d.getMinutes(),
             d.getSeconds()].join(':');
   
-  db.get().query('SELECT m1.* FROM measurements m1 WHERE m1.date_received = (SELECT MAX(m2.date_received) FROM measurements m2 WHERE m2.sensor_id = m1.sensor_id AND date_received > DATE_SUB(NOW(), INTERVAL 600 MINUTE ))', function (err,rows) {
+  db.get().query('SELECT m1.* FROM measurements m1 WHERE m1.date_received = (SELECT MAX(m2.date_received) FROM measurements m2 WHERE m2.sensor_id = m1.sensor_id AND date_received > DATE_SUB(NOW(), INTERVAL 10 MINUTE ))', function (err,rows) {
     if(err) return done(err);
     done(null, rows);
   });
