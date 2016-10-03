@@ -228,9 +228,6 @@ $(document).ready(function () {
 		});
 
 		// Prepare the historical chart
-
-
-
 		var time = new Date(2012,01,1);
 		var temp = -500;	
 		var updateInterval = 1000;
@@ -246,7 +243,7 @@ $(document).ready(function () {
 					time = new_time;
 				});
 			
-				var currentTime = new Date();
+				var currentTime = new Date().getTimezoneOffset();
 				console.log("in chart.js current time is:");
 				console.log(currentTime);
 				if(currentTime > prevTime){
