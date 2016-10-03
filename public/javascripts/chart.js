@@ -6,14 +6,15 @@ var parse_time = function(time, done) {
 	var year = parseInt(time.substr(0,4),10);
 	var month = parseInt(time.substr(5,2),10);
 	var day = parseInt(time.substr(8,2),10);
-	var hour = parseInt(time.substr(11,2),10); // TODO! get this in current timezone
+	var hour = parseInt(time.substr(11,2),10)-4; // TODO! get this in current timezone
 	var minute = parseInt(time.substr(14,2),10);
 	var second = parseInt(time.substr(17,2),10);
 	// console.log("time is: " + time_str);
 
 	var time_date = new Date(year,month,day,hour,minute,second);
-	var offset = new Date().getTimezoneOffset();
-	time_date.setHours(time_date.getHours() + (offset/-60));
+
+	// var offset = new Date().getTimezoneOffset();
+	// time_date.setHours(time_date.getHours() + (offset/-60));
 	console.log("time is: " + time_date);
 	done(time_date);
 };
