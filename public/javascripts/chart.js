@@ -2,6 +2,7 @@
 var parse_time = function(time, done) {
 	// YYYY-MM-DDTHH:MM:SS.0007  to seconds
 	// console.log("full time is " + time);
+	console.log('string time:  ' + time);
 	var year = parseInt(time.substr(0,4),10);
 	var month = parseInt(time.substr(5,2),10);
 	var day = parseInt(time.substr(8,2),10);
@@ -13,7 +14,7 @@ var parse_time = function(time, done) {
 	var time_date = new Date(year,month,day,hour,minute,second);
 	var offset = new Date().getTimezoneOffset();
 	time_date.setHours(time_date.getHours() + (offset/-60));
-	// console.log("seconds is: " + seconds);
+	console.log("time is: " + time_date);
 	done(time_date);
 };
 
@@ -248,8 +249,8 @@ $(document).ready(function () {
 				// var currentTime = new Date();
 				// var offset = new Date().getTimezoneOffset();
 				// currentTime.setHours(currentTime.getHours() + (offset/-60));
-				console.log("in chart.js current time is:");
-				console.log(time);
+				// console.log("in chart.js current time is:");
+				// console.log(time);
 				if(time > prevTime){
 					// Update the charts if there is a new average reading
 					if (temp > -500){
