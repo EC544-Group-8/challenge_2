@@ -250,8 +250,11 @@ $(document).ready(function () {
 				// var offset = new Date().getTimezoneOffset();
 				// currentTime.setHours(currentTime.getHours() + (offset/-60));
 				// console.log("in chart.js current time is:");
-				// console.log(time);
+				console.log(time);
 				if(time > prevTime){
+					console.log("Time within conditional")
+					console.log(time);
+					console.log(prevTime);
 					// Update the charts if there is a new average reading
 					if (temp > -500){
 						// Add the new reading to the realtime chart
@@ -277,7 +280,7 @@ $(document).ready(function () {
 					history_chart.render();
 					prevTime = time;
 				}
-			});
+			//});
 
 		};
 
