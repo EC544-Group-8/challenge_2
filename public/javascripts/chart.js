@@ -34,8 +34,11 @@ $(document).ready(function () {
 				title:"Time (s)"
 			},
 			axisY:{
-				title:"Temperature (°C)"
+				title:"Temperature (°C)",
+				maximum: 100,
+				minimum: 0
 			},
+
 			data: [{
 				type: "line",
 				dataPoints: realtime_data
@@ -87,7 +90,9 @@ $(document).ready(function () {
 					title:"Time (s)"
 				},
 				axisY:{
-					title:"Temperature (°C)"
+					title:"Temperature (°C)",
+					maximum: 100,
+					minimum: 0
 				},
 				data: [{
 					type: "line",
@@ -122,7 +127,9 @@ $(document).ready(function () {
 					title:"Time (s)"
 				},
 				axisY:{
-					title:"Temperature (°C)"
+					title:"Temperature (°C)",
+					maximum: 100,
+					minimum: 0
 				},
 				data: [{
 					type: "line",
@@ -156,7 +163,9 @@ $(document).ready(function () {
 					title:"Time (s)"
 				},
 				axisY:{
-					title:"Temperature (°C)"
+					title:"Temperature (°C)",
+					maximum: 100,
+					minimum: 0
 				},
 				data: [{
 					type: "line",
@@ -189,7 +198,9 @@ $(document).ready(function () {
 					title:"Time (s)"
 				},
 				axisY:{
-					title:"Temperature (°C)"
+					title:"Temperature (°C)",
+					maximum: 100,
+					minimum: 0
 				},
 				data: [{
 					type: "line",
@@ -208,7 +219,10 @@ $(document).ready(function () {
 				title:"Time (s)"
 			},
 			axisY:{
-				title:"Temperature (°C)"
+				title:"Temperature (°C)",
+				maximum: 100,
+				minimum: 0
+
 			},
 			data: [{
 				type: "line",
