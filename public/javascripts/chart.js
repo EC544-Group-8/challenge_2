@@ -236,6 +236,7 @@ $(document).ready(function () {
 		var updateInterval = 1000;
 		var dataLength = 300; // number of dataPoints visible at any point
 
+		// Real Time Chart Update
 		var updateChart = function () {
 			// Get current avg temp and time
 			$.get('/get_current_avg_temp', function(data) {
@@ -245,6 +246,15 @@ $(document).ready(function () {
 					time = new_time;
 				});
 			});
+
+			//=========================================================
+			// 						NEW MATERIAL
+			var pastTime = 0;
+			var rightNow = new Date(year,month,day,hour,minute,second);
+			if(rightNow > pastTime){
+			//=========================================================
+
+
 
 			// Update the charts if there is a new average reading
 			if (temp > -500){
@@ -269,7 +279,8 @@ $(document).ready(function () {
 			// Update Chart
 			chart.render();
 			history_chart.render();
-
+			pastTime = rightNow;
+		}
 		};
 
 		var last_measurement_updated_time = new Date();
