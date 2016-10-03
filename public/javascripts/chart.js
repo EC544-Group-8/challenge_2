@@ -4,7 +4,7 @@ var parse_time = function(time, done) {
 	// console.log("full time is " + time);
 	console.log('string time:  ' + time);
 	var year = parseInt(time.substr(0,4),10);
-	var month = parseInt(time.substr(5,2),10);
+	var month = parseInt(time.substr(5,2),10)-1;
 	var day = parseInt(time.substr(8,2),10);
 	var hour = parseInt(time.substr(11,2),10)-4; // TODO! get this in current timezone
 	var minute = parseInt(time.substr(14,2),10);
