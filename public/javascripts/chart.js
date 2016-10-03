@@ -236,6 +236,7 @@ $(document).ready(function () {
 		var updateInterval = 1000;
 		var dataLength = 300; // number of dataPoints visible at any point
 
+		var prevTime = 0;
 		var updateChart = function () {
 			// Get current avg temp and time
 			$.get('/get_current_avg_temp', function(data) {
@@ -244,31 +245,35 @@ $(document).ready(function () {
 				parse_time(data.date_received, function(new_time) {
 					time = new_time;
 				});
-			});
-
-			// Update the charts if there is a new average reading
-			if (temp > -500){
-				// Add the new reading to the realtime chart
-				realtime_data.push({
-					x: time,
-					y: temp
-				});
-				// Add the new reading to the historical chart
-				historical_data.push({
-					x: time,
-					y: temp
-				});
-			}
-
-			// Scroll Realtime Chart if necessary
-			if (realtime_data.length > dataLength) {
-				// pop the oldest reading
-				realtime_data.shift();
-			}
 			
-			// Update Chart
-			chart.render();
-			history_chart.render();
+				var currentTime = new Date();
+				if(currentTime > prevTime){
+					// Update the charts if there is a new average reading
+					if (temp > -500){
+						// Add the new reading to the realtime chart
+						realtime_data.push({
+							x: time,
+							y: temp
+						});
+						// Add the new reading to the historical chart
+						historical_data.push({
+							x: time,
+							y: temp
+						});
+					}
+
+					// Scroll Realtime Chart if necessary
+					if (realtime_data.length > dataLength) {
+						// pop the oldest reading
+						realtime_data.shift();
+					}
+					
+					// Update Chart
+					chart.render();
+					history_chart.render();
+					prevTime = currentTime;
+				}
+			});
 
 		};
 
