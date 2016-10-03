@@ -247,6 +247,8 @@ $(document).ready(function () {
 				});
 			
 				var currentTime = new Date();
+				console.log("in chart.js current time is:");
+				console.log(currentTime);
 				if(currentTime > prevTime){
 					// Update the charts if there is a new average reading
 					if (temp > -500){
