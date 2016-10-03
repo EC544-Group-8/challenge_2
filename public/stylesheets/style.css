@@ -72,9 +72,5 @@ a {
 #heatMapDiv{
 	height: auto;
 	margin: 0 auto;
-	display:block;
 }
 
-iframe{
-	display: block;
-}
