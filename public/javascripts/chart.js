@@ -243,7 +243,9 @@ $(document).ready(function () {
 					time = new_time;
 				});
 			
-				var currentTime = new Date().getTimezoneOffset();
+				var currentTime = new Date();
+				var offset = new Date().getTimezoneOffset();
+				currentTime.setHours(currentTime.getHours() + (offset/-60));
 				console.log("in chart.js current time is:");
 				console.log(currentTime);
 				if(currentTime > prevTime){
