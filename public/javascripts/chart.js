@@ -63,6 +63,24 @@ $(document).ready(function () {
 					y:  xtemp
 				});
 			}
+
+			var history_chart = new CanvasJS.Chart("history",{
+				title :{
+					text: "Historical Average Temperature"
+				},			
+				axisX:{
+					title:"Time (s)"
+				},
+				axisY:{
+					title:"Temperature (°C)",
+					maximum: 40,
+					minimum: 0,
+				},
+				data: [{
+					type: "line",
+					dataPoints: historical_data
+				}]
+			});
 		});
 
 		$.get('/get_hist_sensor/1', function (s1_hist_data) {
@@ -210,23 +228,7 @@ $(document).ready(function () {
 		});
 
 		// Prepare the historical chart
-		var history_chart = new CanvasJS.Chart("history",{
-			title :{
-				text: "Historical Average Temperature"
-			},			
-			axisX:{
-				title:"Time (s)"
-			},
-			axisY:{
-				title:"Temperature (°C)",
-				maximum: 40,
-				minimum: 0,
-			},
-			data: [{
-				type: "line",
-				dataPoints: historical_data
-			}]
-		});
+
 
 
 		var time = new Date(2012,01,1);
