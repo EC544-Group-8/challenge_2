@@ -11,6 +11,8 @@ var parse_time = function(time, done) {
 	// console.log("time is: " + time_str);
 
 	var time_date = new Date(year,month,day,hour,minute,second);
+	var offset = new Date().getTimezoneOffset();
+	time_date.setHours(time_date.getHours() + (offset/-60));
 	// console.log("seconds is: " + seconds);
 	done(time_date);
 };
