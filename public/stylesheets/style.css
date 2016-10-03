@@ -74,3 +74,7 @@ a {
 	margin: 0 auto;
 	display:block;
 }
+
+iframe{
+	display: block;
+}
