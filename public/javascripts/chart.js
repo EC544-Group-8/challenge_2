@@ -245,12 +245,12 @@ $(document).ready(function () {
 					time = new_time;
 				});
 			
-				var currentTime = new Date();
-				var offset = new Date().getTimezoneOffset();
-				currentTime.setHours(currentTime.getHours() + (offset/-60));
+				// var currentTime = new Date();
+				// var offset = new Date().getTimezoneOffset();
+				// currentTime.setHours(currentTime.getHours() + (offset/-60));
 				console.log("in chart.js current time is:");
-				console.log(currentTime);
-				if(currentTime > prevTime){
+				console.log(time);
+				if(time > prevTime){
 					// Update the charts if there is a new average reading
 					if (temp > -500){
 						// Add the new reading to the realtime chart
@@ -274,7 +274,7 @@ $(document).ready(function () {
 					// Update Chart
 					chart.render();
 					history_chart.render();
-					prevTime = currentTime;
+					prevTime = time;
 				}
 			});
 
