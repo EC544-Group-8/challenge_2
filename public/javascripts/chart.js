@@ -81,6 +81,7 @@ $(document).ready(function () {
 					dataPoints: historical_data
 				}]
 			});
+			history_chart.render();
 		});
 
 		$.get('/get_hist_sensor/1', function (s1_hist_data) {
