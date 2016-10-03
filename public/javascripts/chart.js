@@ -280,7 +280,7 @@ $(document).ready(function () {
 					history_chart.render();
 					prevTime = time;
 				}
-			//});
+			});
 
 		};
 
