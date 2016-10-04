@@ -12,6 +12,8 @@ exports.create = function(sensor_id, reading, done) {
                [d.getHours(),
                 d.getMinutes(),
                 d.getSeconds()].join(':');
+  // console.log("the date_received from measSQL:");
+  // console.log(date_received);
 
   // Check the reading value because console.log showed diff values than those stored
   var values = [sensor_id, parseFloat(reading).toFixed(2), date_received];
@@ -51,7 +53,7 @@ exports.getAllMostRecentFromLastTenMinutes = function(done) {
             d.getMinutes(),
             d.getSeconds()].join(':');
   
-  db.get().query('SELECT m1.* FROM measurements m1 WHERE m1.date_received = (SELECT MAX(m2.date_received) FROM measurements m2 WHERE m2.sensor_id = m1.sensor_id AND date_received > DATE_SUB(NOW(), INTERVAL 600 MINUTE ))', function (err,rows) {
+  db.get().query('SELECT m1.* FROM measurements m1 WHERE m1.date_received = (SELECT MAX(m2.date_received) FROM measurements m2 WHERE m2.sensor_id = m1.sensor_id AND date_received > DATE_SUB(NOW(), INTERVAL 1 MINUTE ))', function (err,rows) {
     if(err) return done(err);
     done(null, rows);
   });
@@ -76,7 +78,7 @@ exports.getMostRecent = function(done) {
 
 
 // Query to obtain the most recent reading for a particular sensor
-exports.getMostRecentBySensor = function(done) {
+exports.getMostRecentBySensor = function(sensor_id, done) {
   var d = new Date();
   now = [d.getFullYear(),
            '0'+(d.getMonth()+1),
@@ -86,7 +88,7 @@ exports.getMostRecentBySensor = function(done) {
             d.getMinutes(),
             d.getSeconds()].join(':');
   
-  db.get().query('SELECT * FROM measurements WHERE sensor_id = ? ORDER BY date_received DESC LIMIT 1', function (err, rows) {
+  db.get().query('SELECT * FROM measurements WHERE sensor_id = ? ORDER BY date_received DESC LIMIT 1', sensor_id, function (err, rows) {
     if(err) return done(err);
     done(null, rows);
   });

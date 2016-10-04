@@ -80,6 +80,7 @@ app.get('/get_hist_sensor/3', function(req,res) {
     }
   });
 });
+
 app.get('/get_hist_sensor/4', function(req,res) {
   Measurement.getAllBySensor(4, function (err, hist_data) {
     if(hist_data) {
@@ -92,6 +93,18 @@ app.get('/get_most_recent_measurement', function(req,res) {
   Measurement.getMostRecent(function (err, last_reading) {
     if(last_reading && last_reading[0]){
       res.send(last_reading[0]);
+    }
+  });
+});
+
+// Keeps the heat map up to date with new data from each sensor
+// Most likely can be deleted
+app.get('/get_heat_map/1', function(req,res) {
+  console.log('Grabbing the heat map data');
+  Measurement.getMostRecentBySensor(1, function (err, last_reading) {
+    if(last_reading && last_reading[0]){
+      res.send(last_reading[0]);
+      
     }
   });
 });
@@ -126,6 +139,14 @@ sp.on("open", function () {
     Tempcontroller.parse_data(data);
   });
 });
+
+// building the heat map 
+var plotly = require('plotly')("delollis", "cj716hsz4v");
+var heatMapController = require('./models/heatmap.js');
+setInterval(function(){
+  heatMapController.updateHeatMap();
+},120000);
+//=======================================================================
 
 // Every 3 seconds ping one of the arduinos
 setInterval(function(){

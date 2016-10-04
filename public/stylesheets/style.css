@@ -68,3 +68,13 @@ a {
 	width: 50%;
 	float: left;
 }
+
+#heatMapDiv{
+	height: auto;
+	margin: 0 auto;
+}
+
+iframe{
+	margin: 0 auto;
+}
+

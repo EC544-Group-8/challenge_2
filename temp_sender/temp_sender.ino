@@ -22,7 +22,7 @@ SoftwareSerial xbeeSerial(2, 3);
 
 
 #define SEND 's'
-#define DEVICE_ID 3
+#define DEVICE_ID 2
 char devices[] = {'x', 'a', 'b', 'c', 'd'};
 
 int samples[NUMSAMPLES];
