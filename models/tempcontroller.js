@@ -24,12 +24,12 @@ exports.parse_data = function(dataString) {
   }
 };
 
-var prevTime = 0;
+//var prevTime = 0;
 // Calculate the average temperatures from the system
 exports.calc_avg = function(){
   var total = 0;
   var divisor = 0;
-  var currentTime = new Date();
+  //var currentTime = new Date();
 
   // Get the most the most recent reading from the last 10 minutes from each of the sensors
   Measurement.getAllMostRecentFromLastTenMinutes(function (err, measurements) {
@@ -66,7 +66,7 @@ exports.calc_avg = function(){
         Average.create(avg.toFixed(2), function (err, insert_id) {
           console.log(err);
           console.log('inserted average as id ' + insert_id);
-          prevTime = currentTime;
+          //prevTime = currentTime;
         });
       }
     }
