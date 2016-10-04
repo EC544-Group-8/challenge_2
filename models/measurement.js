@@ -12,6 +12,8 @@ exports.create = function(sensor_id, reading, done) {
                [d.getHours(),
                 d.getMinutes(),
                 d.getSeconds()].join(':');
+  // console.log("the date_received from measSQL:");
+  // console.log(date_received);
 
   // Check the reading value because console.log showed diff values than those stored
   var values = [sensor_id, parseFloat(reading).toFixed(2), date_received];
