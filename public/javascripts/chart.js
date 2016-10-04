@@ -357,6 +357,7 @@ $(document).ready(function () {
 		// update displays after specified time. 
 		setInterval(function(){updateChart(1);}, updateInterval);
 		setInterval(function(){updateCurrentTemp();}, updateInterval);
+		setInterval(function() {document.getElementById('heatMapFrame').contentWindow.location.reload();},updateInterval);
 		//setInterval(function(){updateSensorCharts();}, updateInterval);
 
 	};
