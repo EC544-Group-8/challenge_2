@@ -264,10 +264,10 @@ $(document).ready(function () {
 							y: temp
 						});
 						// Add the new reading to the historical chart
-						historical_data.push({
-							x: time,
-							y: temp
-						});
+						// historical_data.push({
+						// 	x: time,
+						// 	y: temp
+						// });
 					}
 
 					// Scroll Realtime Chart if necessary
@@ -278,7 +278,7 @@ $(document).ready(function () {
 					
 					// Update Chart
 					chart.render();
-					history_chart.render();
+					//history_chart.render();
 					prevTime = time;
 				}
 			});
